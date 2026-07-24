@@ -34,14 +34,11 @@ export const QuoteModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Trigger festive confetti celebrate effect
     confetti({
       particleCount: 80,
       spread: 70,
       origin: { y: 0.6 }
     });
-
     setIsSubmitted(true);
   };
 
@@ -50,9 +47,15 @@ export const QuoteModal = ({
     onClose();
   };
 
+  const inputClass = darkMode
+    ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:ring-cyan-500'
+    : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:ring-sky-400';
+
+  const labelClass = `font-semibold ${darkMode ? 'text-slate-300' : 'text-slate-600'}`;
+
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+      <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -62,19 +65,25 @@ export const QuoteModal = ({
           }`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+          <div className={`flex items-center justify-between pb-4 border-b ${
+            darkMode ? 'border-slate-800' : 'border-slate-200'
+          }`}>
             <div className="flex items-center space-x-2">
-              <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-400">
+              <div className={`p-2 rounded-xl ${darkMode ? 'bg-cyan-500/20 text-cyan-400' : 'bg-cyan-50 text-cyan-600'}`}>
                 <FileText className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-xl font-extrabold">Request Instant Quote</h3>
-                <p className="text-xs text-slate-400">MDA Group Pune • Direct OEM Wholesale Pricing</p>
+                <p className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>MDA Group Pune • Direct OEM Wholesale Pricing</p>
               </div>
             </div>
             <button 
               onClick={onClose} 
-              className="p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              className={`p-1.5 rounded-full transition-colors ${
+                darkMode 
+                  ? 'text-slate-400 hover:text-white hover:bg-slate-800' 
+                  : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
+              }`}
             >
               <X className="w-5 h-5" />
             </button>
@@ -83,12 +92,16 @@ export const QuoteModal = ({
           {/* Form Content / Success Confirmation */}
           {isSubmitted ? (
             <div className="py-8 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto animate-bounce">
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto animate-bounce ${
+                darkMode 
+                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' 
+                  : 'bg-emerald-50 text-emerald-500 border border-emerald-200'
+              }`}>
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h4 className="text-2xl font-black text-emerald-400">Quote Inquiry Submitted!</h4>
+              <h4 className="text-2xl font-black text-emerald-500">Quote Inquiry Submitted!</h4>
               <p className={`text-xs max-w-md mx-auto leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-                Thank you, <span className="font-bold text-white">{formData.name}</span>! Our sales team at MDA Group Pune has received your inquiry for <span className="font-bold text-cyan-400">{formData.productName} (Qty: {formData.quantity})</span>. We will call you back on {formData.phone} shortly with discount details.
+                Thank you, <span className={`font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>{formData.name}</span>! Our sales team at MDA Group Pune has received your inquiry for <span className="font-bold text-cyan-600">{formData.productName} (Qty: {formData.quantity})</span>. We will call you back on {formData.phone} shortly with discount details.
               </p>
               
               <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
@@ -102,7 +115,11 @@ export const QuoteModal = ({
                 </a>
                 <button
                   onClick={handleResetAndClose}
-                  className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2.5 rounded-xl text-xs transition-colors"
+                  className={`font-bold px-5 py-2.5 rounded-xl text-xs transition-colors ${
+                    darkMode 
+                      ? 'bg-slate-800 hover:bg-slate-700 text-slate-200' 
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                  }`}
                 >
                   Close Window
                 </button>
@@ -113,16 +130,14 @@ export const QuoteModal = ({
               
               {/* Product Selection */}
               <div className="space-y-1">
-                <label className="font-bold text-slate-300 flex items-center justify-between">
+                <label className={`font-bold flex items-center justify-between ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                   <span>Selected Product / Spare Part:</span>
-                  <span className="text-cyan-400 font-mono text-[10px]">In Stock</span>
+                  <span className="text-cyan-600 font-mono text-[10px]">In Stock</span>
                 </label>
                 <select
                   value={formData.productName}
                   onChange={(e) => setFormData({ ...formData, productName: e.target.value })}
-                  className={`w-full p-2.5 rounded-xl border text-xs font-bold focus:outline-none focus:ring-2 ${
-                    darkMode ? 'bg-slate-950 border-slate-700 text-cyan-300 focus:ring-cyan-500' : 'bg-slate-50 border-slate-300 text-slate-900 focus:ring-blue-500'
-                  }`}
+                  className={`w-full p-2.5 rounded-xl border text-xs font-bold focus:outline-none focus:ring-2 ${inputClass}`}
                 >
                   {PRODUCTS.map(p => (
                     <option key={p.id} value={p.name}>
@@ -135,63 +150,51 @@ export const QuoteModal = ({
               {/* Name & Phone */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-300">Your Full Name *</label>
-                  <div className="relative">
-                    <input
-                      required
-                      type="text"
-                      placeholder="e.g. Rajesh Sharma"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                        darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                      }`}
-                    />
-                  </div>
+                  <label className={labelClass}>Your Full Name *</label>
+                  <input
+                    required
+                    type="text"
+                    placeholder="e.g. Rajesh Sharma"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputClass}`}
+                  />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-300">Mobile / WhatsApp No. *</label>
-                  <div className="relative">
-                    <input
-                      required
-                      type="tel"
-                      placeholder="+91 98765 43210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                        darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                      }`}
-                    />
-                  </div>
+                  <label className={labelClass}>Mobile / WhatsApp No. *</label>
+                  <input
+                    required
+                    type="tel"
+                    placeholder="+91 98765 43210"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputClass}`}
+                  />
                 </div>
               </div>
 
               {/* Email & Company */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-300">Email Address</label>
+                  <label className={labelClass}>Email Address</label>
                   <input
                     type="email"
                     placeholder="name@company.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                      darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                    }`}
+                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputClass}`}
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-300">Company / Shop Name</label>
+                  <label className={labelClass}>Company / Shop Name</label>
                   <input
                     type="text"
                     placeholder="Laser Cutting Works, Pune"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                      darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                    }`}
+                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputClass}`}
                   />
                 </div>
               </div>
@@ -199,26 +202,22 @@ export const QuoteModal = ({
               {/* Quantity & Urgency */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-300">Estimated Quantity</label>
+                  <label className={labelClass}>Estimated Quantity</label>
                   <input
                     type="number"
                     min="1"
                     value={formData.quantity}
                     onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                      darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                    }`}
+                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputClass}`}
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-300">Delivery Requirement</label>
+                  <label className={labelClass}>Delivery Requirement</label>
                   <select
                     value={formData.urgency}
                     onChange={(e) => setFormData({ ...formData, urgency: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                      darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                    }`}
+                    className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputClass}`}
                   >
                     <option value="Urgent (Same Day Pune Pickup)">Urgent (Same Day Pune Pickup)</option>
                     <option value="Normal (1-3 days)">Express Air (1-3 days)</option>
@@ -229,15 +228,13 @@ export const QuoteModal = ({
 
               {/* Message */}
               <div className="space-y-1">
-                <label className="font-semibold text-slate-300">Additional Specs / Remarks</label>
+                <label className={labelClass}>Additional Specs / Remarks</label>
                 <textarea
                   rows="2"
                   placeholder="Mention thread sizes (M11/M14), focal distances, or laser machine model (Raytools BM111, Raycus 6KW, etc.)."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
-                    darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                  }`}
+                  className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputClass}`}
                 ></textarea>
               </div>
 

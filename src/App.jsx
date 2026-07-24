@@ -26,14 +26,12 @@ export function App() {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [quoteItemsCount, setQuoteItemsCount] = useState(0);
 
-  // Apply dark mode class to document body
+  // Apply dark mode class to document root for Tailwind dark mode
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
     } else {
       document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
     }
   }, [darkMode]);
 
@@ -65,7 +63,7 @@ export function App() {
   };
 
   return (
-    <div className={`min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'}`}>
       
       {/* Top Header Navigation */}
       <Header
@@ -85,11 +83,7 @@ export function App() {
         onExploreClick={handleExploreClick}
       />
 
-      {/* Our Trusted Brands Section with White & Black Logos */}
-      <TrustedBrands
-        darkMode={darkMode}
-        onSelectBrand={handleSelectBrandFromTrusted}
-      />
+      
 
       {/* Main Product Showcase Grid (All 20 Spares with HD Images, Prices, Badges) */}
       <ProductShowcase
@@ -103,10 +97,10 @@ export function App() {
       />
 
       {/* Brand-Wise Products Matrix */}
-      <BrandWiseSection
+      {/* <BrandWiseSection
         darkMode={darkMode}
         onGetQuote={handleOpenQuoteModal}
-      />
+      /> */}
 
       {/* Product & Warehouse Gallery (12 HD Images Grid) */}
       <GallerySection
@@ -124,9 +118,9 @@ export function App() {
       />
 
       {/* FAQ Accordion Section */}
-      <FAQSection
+      {/* <FAQSection
         darkMode={darkMode}
-      />
+      /> */}
 
       {/* Request a Quote Form Section */}
       <QuoteSection

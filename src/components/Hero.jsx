@@ -6,27 +6,27 @@ import { HERO_BG_IMAGE } from '../data/images';
 
 export const Hero = ({ onOpenQuoteModal, onExploreClick }) => {
   return (
-    <section id="hero" className="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white py-16 px-4">
-      {/* Full-width Hero Background Image of Fiber Laser Cutting Machine */}
+    <section id="hero" className="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-slate-900 text-white py-16 px-4">
+      {/* Full-width Hero Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
           src={HERO_BG_IMAGE} 
           alt="Fiber Laser Cutting Machine" 
-          className="w-full h-full object-cover object-center opacity-30 mix-blend-luminosity scale-105 transform transition-transform duration-1000 hover:scale-100"
+          className="w-full h-full object-cover object-center opacity-25 mix-blend-luminosity scale-105 transform transition-transform duration-1000 hover:scale-100"
         />
-        {/* Dark Vignette Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/75"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/80"></div>
-        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
+        {/* Gradient Vignettes */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/92 to-slate-900/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-slate-900/75"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-15"></div>
       </div>
       
-      {/* Glowing Laser Axis Lines */}
-      <div className="absolute top-1/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent z-10"></div>
-      <div className="absolute top-3/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent z-10"></div>
+      {/* Glowing Lines */}
+      <div className="absolute top-1/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent z-10"></div>
+      <div className="absolute top-3/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-sky-400/30 to-transparent z-10"></div>
 
       {/* Radiant Glow Spots */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl pointer-events-none z-10"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-700/20 rounded-full blur-3xl pointer-events-none z-10"></div>
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-cyan-600/15 rounded-full blur-3xl pointer-events-none z-10"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-700/15 rounded-full blur-3xl pointer-events-none z-10"></div>
 
       <div className="relative z-20 max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
         
@@ -40,32 +40,33 @@ export const Hero = ({ onOpenQuoteModal, onExploreClick }) => {
           {/* Top Tagline Badge */}
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-cyan-950/90 to-slate-900 border border-cyan-500/40 text-cyan-300 text-xs font-semibold shadow-inner backdrop-blur-md">
             <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping"></span>
-            <span>DIRECT OEM SUPPLIER & STOCKIST IN INDIA</span>
+            <span>DIRECT OEM SUPPLIER &amp; STOCKIST IN INDIA</span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
-            High-Precision <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">
+          <h1 className="text-3xl sm:text-2xl lg:text-5xl font-black tracking-tight leading-tight text-white">
+            Precision Performance  Reliability. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400">
               Fiber Laser Spare Parts
             </span> <br />
-            & Optics
+            &amp; Optics
           </h1>
 
           {/* Subtitle */}
           <p className="text-slate-300 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
-            {COMPANY_INFO.tagline}. Sourcing premium protective lenses, laser nozzles, auto-focus cutting heads, ceramic rings, and fiber sources from world-class brands.
+            Delivering professional laser machine maintenance, repair, upgrades, and genuine spare parts to keep your business running efficiently.
+             Or MDA Group provides complete laser cutting machine solutions, expert maintenance, and technical support for industries worldwide.
           </p>
 
           {/* Key OEM Brands Badge Line */}
-          <div className="pt-1 flex flex-wrap items-center gap-2 text-xs font-medium text-slate-400">
+          {/* <div className="pt-1 flex flex-wrap items-center gap-2 text-xs font-medium text-slate-400">
             <span className="text-slate-500">Stocking Spares For:</span>
             {["Raytools", "Raycus", "MAX Photonics", "BOCI", "Precitec", "WSX", "IPG", "OSPRI"].map((brand) => (
-              <span key={brand} className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-cyan-300 font-mono">
+              <span key={brand} className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-700 text-cyan-300 font-mono">
                 {brand}
               </span>
             ))}
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
           <div className="pt-4 flex flex-wrap items-center gap-4">
@@ -79,7 +80,7 @@ export const Hero = ({ onOpenQuoteModal, onExploreClick }) => {
 
             <button
               onClick={() => onOpenQuoteModal()}
-              className="bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 hover:border-cyan-500 font-semibold px-6 py-3.5 rounded-xl transition-all flex items-center space-x-2 shadow-md backdrop-blur-sm"
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-cyan-400 font-semibold px-6 py-3.5 rounded-xl transition-all flex items-center space-x-2 shadow-md backdrop-blur-sm"
             >
               <FileText className="w-4 h-4 text-cyan-400" />
               <span>Get Custom Quote</span>
@@ -87,19 +88,15 @@ export const Hero = ({ onOpenQuoteModal, onExploreClick }) => {
           </div>
 
           {/* Metric Highlights Grid */}
-          <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-800/80">
+          <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/10">
             <div className="space-y-0.5">
-              <p className="text-2xl font-black text-white">50,000+</p>
+              <p className="text-2xl font-black text-white">34,000+</p>
               <p className="text-xs text-slate-400 font-medium">Parts Delivered</p>
             </div>
             <div className="space-y-0.5">
-              <p className="text-2xl font-black text-cyan-400">10+ Top</p>
+              <p className="text-2xl font-black text-cyan-400">8+ Top</p>
               <p className="text-xs text-slate-400 font-medium">Global Brands</p>
-            </div>
-            <div className="space-y-0.5">
-              <p className="text-2xl font-black text-white">Same Day</p>
-              <p className="text-xs text-slate-400 font-medium">Pune Dispatch</p>
-            </div>
+            </div>            
             <div className="space-y-0.5">
               <p className="text-2xl font-black text-emerald-400">100%</p>
               <p className="text-xs text-slate-400 font-medium">OEM Quality</p>
@@ -115,10 +112,10 @@ export const Hero = ({ onOpenQuoteModal, onExploreClick }) => {
           className="lg:col-span-5 relative"
         >
           {/* Main Visual Glass Card */}
-          <div className="relative rounded-2xl p-6 bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-slate-800 shadow-2xl backdrop-blur-xl space-y-6">
+          <div className="relative rounded-2xl p-6 bg-gradient-to-b from-slate-800/90 to-slate-900/95 border border-slate-700 shadow-2xl backdrop-blur-xl space-y-6">
             
             {/* Header of Visual */}
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center justify-between border-b border-slate-700 pb-3">
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -171,7 +168,7 @@ export const Hero = ({ onOpenQuoteModal, onExploreClick }) => {
               </div>
               <div className="p-2 rounded bg-slate-950 border border-slate-800">
                 <Award className="w-4 h-4 text-amber-400 mx-auto mb-1" />
-                <span className="text-slate-300 font-medium">Tested & Sealed</span>
+                <span className="text-slate-300 font-medium">Tested &amp; Sealed</span>
               </div>
             </div>
 

@@ -12,14 +12,14 @@ export const Footer = ({ darkMode }) => {
 
   return (
     <footer className={`border-t transition-colors duration-300 ${
-      darkMode ? 'bg-slate-950 text-slate-300 border-slate-800' : 'bg-slate-900 text-slate-200 border-slate-800'
+      darkMode ? 'bg-slate-950 text-slate-300 border-slate-800' : 'bg-slate-900 text-slate-300 border-slate-800'
     }`}>
       
       {/* Upper Partner Brands Strip */}
-      <div className="border-b border-slate-800/80 py-6 px-4 bg-slate-950/80">
+      <div className="border-b border-slate-800/80 py-6 px-4 bg-slate-950/90">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">
-            Authorized Supply & Support Partners:
+            Authorized Supply &amp; Support Partners:
           </span>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {["Raytools", "Raycus", "MAX Photonics", "BOCI", "Precitec", "WSX", "IPG Photonics", "FSCUT"].map((partner) => (
@@ -36,7 +36,7 @@ export const Footer = ({ darkMode }) => {
         
         {/* Col 1: Brand Info & MDALogo */}
         <div className="lg:col-span-2 space-y-4">
-          <MDALogo className="w-14 h-14" showText={true} darkMode={darkMode} />
+          <MDALogo className="w-14 h-14" showText={true} darkMode={true} />
 
           <p className="text-slate-400 leading-relaxed max-w-sm pt-2">
             {COMPANY_INFO.tagline}. Sourcing high performance protective optics, laser nozzles, auto-focus cutting heads, ceramic sensor rings, and fiber laser generators.
@@ -62,7 +62,7 @@ export const Footer = ({ darkMode }) => {
         <div className="space-y-3">
           <h4 className="text-sm font-bold text-white uppercase tracking-wider">Quick Navigation</h4>
           <ul className="space-y-2">
-            {["Hero", "Brands", "Products", "Brand-Products", "Industries", "Gallery", "Team", "FAQ", "Contact"].map((link) => (
+            {["Hero", "Brands", "Products", "Gallery", "Team", "FAQ", "Contact"].map((link) => (
               <li key={link}>
                 <a
                   href={`#${link.toLowerCase()}`}
@@ -120,7 +120,7 @@ export const Footer = ({ darkMode }) => {
           </div>
 
           <p className="text-[11px] text-slate-500">
-            High Precision Fiber Laser Spare Parts & Optics Supplier • Pune, Maharashtra, India.
+            High Precision Fiber Laser Spare Parts &amp; Optics Supplier • Pune, Maharashtra, India.
           </p>
 
           <button

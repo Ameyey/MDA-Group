@@ -27,102 +27,110 @@ export const QuoteSection = ({ darkMode }) => {
     setSubmitted(true);
   };
 
+  const inputClass = darkMode
+    ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:ring-cyan-500'
+    : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:ring-sky-400';
+
+  const labelClass = darkMode ? 'text-slate-300' : 'text-slate-700';
+
   return (
-    <section id="contact" className={`py-16 px-4 transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-100 text-slate-900'}`}>
+    <section id="contact" className={`py-16 px-4 transition-colors duration-300 ${
+      darkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'
+    }`}>
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Section Header */}
         <div className="text-center space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
+          <span className="text-xs font-bold uppercase tracking-widest text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-200">
             Fast Response Inquiry
           </span>
           <h2 className={`text-3xl sm:text-4xl font-black ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-            Request a <span className="text-cyan-500">Quote</span>
+            Request a <span className="text-cyan-600">Quote</span>
           </h2>
-          <p className={`text-sm max-w-xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <p className={`text-sm max-w-xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
             Need urgent spare parts or custom wholesale pricing? Send us your requirements and our technical team will contact you within 30 minutes.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Contact Card & Address Info from Business Card */}
+          {/* Left Contact Card */}
           <div className="lg:col-span-5 space-y-6 text-left">
-            <div className={`p-6 sm:p-8 rounded-3xl border space-y-6 shadow-xl ${
-              darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
+            <div className={`p-6 sm:p-8 rounded-3xl border space-y-6 shadow-sm ${
+              darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'
             }`}>
               
-              <div className="border-b border-slate-800 pb-4">
-                <span className="text-xs font-mono font-bold text-cyan-400">MDA GROUP HQ PUNE</span>
+              <div className={`border-b pb-4 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
+                <span className="text-xs font-mono font-bold text-cyan-600">MDA GROUP HQ PUNE</span>
                 <h3 className="text-2xl font-black mt-1">Contact Details</h3>
-                <p className="text-xs text-slate-400 mt-1">Fiber Laser Spare Parts & Optics Supplier</p>
+                <p className={`text-xs mt-1 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Fiber Laser Spare Parts &amp; Optics Supplier</p>
               </div>
 
               <div className="space-y-4 text-xs">
                 <a href={`tel:${COMPANY_INFO.phone}`} className="flex items-start space-x-3 group">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors shrink-0">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white transition-colors shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-semibold text-slate-400 block">Call / WhatsApp:</span>
-                    <span className="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
+                    <span className={`font-semibold block ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Call / WhatsApp:</span>
+                    <span className={`text-base font-bold group-hover:text-cyan-600 transition-colors ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                       {COMPANY_INFO.phone}
                     </span>
                   </div>
                 </a>
 
                 <a href={`mailto:${COMPANY_INFO.email}`} className="flex items-start space-x-3 group">
-                  <div className="p-2.5 rounded-xl bg-blue-500/20 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors shrink-0">
+                  <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-semibold text-slate-400 block">Email Inquiry:</span>
-                    <span className="text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                    <span className={`font-semibold block ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Email Inquiry:</span>
+                    <span className={`text-sm font-semibold group-hover:text-cyan-600 transition-colors ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                       {COMPANY_INFO.email}
                     </span>
                   </div>
                 </a>
 
                 <div className="flex items-start space-x-3">
-                  <div className="p-2.5 rounded-xl bg-red-500/20 text-red-400 shrink-0">
+                  <div className="p-2.5 rounded-xl bg-red-500/10 text-red-500 shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-semibold text-slate-400 block">Warehouse Address:</span>
-                    <span className="text-xs text-slate-300 leading-relaxed block mt-0.5">
+                    <span className={`font-semibold block ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Warehouse Address:</span>
+                    <span className={`text-xs leading-relaxed block mt-0.5 ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                       {COMPANY_INFO.address}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 space-y-2 text-xs">
-                <div className="flex items-center space-x-2 text-emerald-400 font-semibold">
+              <div className={`pt-4 border-t space-y-2 text-xs ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
+                <div className="flex items-center space-x-2 text-emerald-600 font-semibold">
                   <Clock className="w-4 h-4" />
                   <span>Business Hours: {COMPANY_INFO.workingHours}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-slate-400">
-                  <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                  <span>Same-Day Local Pickup & Express All-India Air Courier</span>
+                <div className={`flex items-center space-x-2 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                  <ShieldCheck className="w-4 h-4 text-cyan-500" />
+                  <span>Same-Day Local Pickup &amp; Express All-India Air Courier</span>
                 </div>
               </div>
 
             </div>
           </div>
 
-          {/* Right Interactive Request Quote Form */}
+          {/* Right Request Quote Form */}
           <div className="lg:col-span-7">
-            <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl ${
+            <div className={`p-6 sm:p-8 rounded-3xl border shadow-sm ${
               darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
             }`}>
               
               {submitted ? (
                 <div className="py-12 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto">
+                  <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 border border-emerald-200 flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
-                  <h3 className="text-2xl font-black text-emerald-400">Quote Request Received!</h3>
-                  <p className="text-xs text-slate-400 max-w-md mx-auto">
+                  <h3 className="text-2xl font-black text-emerald-600">Quote Request Received!</h3>
+                  <p className={`text-xs max-w-md mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                     Thank you {formData.name}! MDA Group team in Pune has received your inquiry. We will contact you at {formData.phone} shortly.
                   </p>
                   <button
@@ -136,85 +144,73 @@ export const QuoteSection = ({ darkMode }) => {
                 <form onSubmit={handleSubmit} className="space-y-4 text-xs text-left">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Name *</label>
+                      <label className={`font-semibold ${labelClass}`}>Name *</label>
                       <input
                         required
                         type="text"
                         placeholder="Your Full Name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className={`w-full p-3 rounded-xl border focus:outline-none ${
-                          darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                        }`}
+                        className={`w-full p-3 rounded-xl border focus:outline-none focus:ring-2 ${inputClass}`}
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Phone / WhatsApp *</label>
+                      <label className={`font-semibold ${labelClass}`}>Phone / WhatsApp *</label>
                       <input
                         required
                         type="tel"
                         placeholder="+91 Phone Number"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className={`w-full p-3 rounded-xl border focus:outline-none ${
-                          darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                        }`}
+                        className={`w-full p-3 rounded-xl border focus:outline-none focus:ring-2 ${inputClass}`}
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Email Address</label>
+                      <label className={`font-semibold ${labelClass}`}>Email Address</label>
                       <input
                         type="email"
                         placeholder="yourname@domain.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className={`w-full p-3 rounded-xl border focus:outline-none ${
-                          darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                        }`}
+                        className={`w-full p-3 rounded-xl border focus:outline-none focus:ring-2 ${inputClass}`}
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Company Name</label>
+                      <label className={`font-semibold ${labelClass}`}>Company Name</label>
                       <input
                         type="text"
                         placeholder="Company Name"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className={`w-full p-3 rounded-xl border focus:outline-none ${
-                          darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                        }`}
+                        className={`w-full p-3 rounded-xl border focus:outline-none focus:ring-2 ${inputClass}`}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-300">Laser Parts Needed</label>
+                    <label className={`font-semibold ${labelClass}`}>Laser Parts Needed</label>
                     <input
                       type="text"
                       placeholder="e.g., Raytools 27.9x4.1 Optics (Qty 20), Single Nozzle 1.5mm (Qty 50)"
                       value={formData.partsNeeded}
                       onChange={(e) => setFormData({ ...formData, partsNeeded: e.target.value })}
-                      className={`w-full p-3 rounded-xl border focus:outline-none ${
-                        darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                      }`}
+                      className={`w-full p-3 rounded-xl border focus:outline-none focus:ring-2 ${inputClass}`}
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-300">Requirement Details / Remarks</label>
+                    <label className={`font-semibold ${labelClass}`}>Requirement Details / Remarks</label>
                     <textarea
                       rows="3"
                       placeholder="Specify focal length, laser machine wattage, or delivery requirements."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className={`w-full p-3 rounded-xl border focus:outline-none ${
-                        darkMode ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
-                      }`}
+                      className={`w-full p-3 rounded-xl border focus:outline-none focus:ring-2 ${inputClass}`}
                     ></textarea>
                   </div>
 

@@ -14,28 +14,21 @@ export const ProductShowcase = ({
   onGetQuote 
 }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [sortBy, setSortBy] = useState("featured"); // 'featured', 'name-asc', 'name-desc'
+  const [sortBy, setSortBy] = useState("featured");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  // Filter products by category, brand, and search input
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
-      // Category check
       const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
-      
-      // Brand check
       const matchesBrand = selectedBrand === "All" || 
         product.compatibleBrands.some(b => b.toLowerCase().includes(selectedBrand.toLowerCase()));
-
-      // Search term check
       const term = searchTerm.toLowerCase().trim();
       const matchesSearch = !term || 
         product.name.toLowerCase().includes(term) ||
         product.shortDesc.toLowerCase().includes(term) ||
         product.category.toLowerCase().includes(term) ||
         product.compatibleBrands.some(b => b.toLowerCase().includes(term));
-
       return matchesCategory && matchesBrand && matchesSearch;
     }).sort((a, b) => {
       if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
@@ -44,7 +37,6 @@ export const ProductShowcase = ({
     });
   }, [selectedCategory, selectedBrand, searchTerm, sortBy]);
 
-  // Pagination calculation
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -64,25 +56,27 @@ export const ProductShowcase = ({
   };
 
   return (
-    <section id="products" className={`py-16 px-4 transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-100 text-slate-900'}`}>
+    <section id="products" className={`py-16 px-4 transition-colors duration-300 ${
+      darkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'
+    }`}>
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Section Header */}
         <div className="text-center space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
-            Catalog & Spares Inventory
+          <span className="text-xs font-bold uppercase tracking-widest text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-200">
+            Catalog &amp; Spares Inventory
           </span>
           <h2 className={`text-3xl sm:text-4xl font-black ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-            Featured Laser <span className="text-cyan-500">Products & Optics</span>
+            Featured Laser <span className="text-cyan-600">Products &amp; Optics</span>
           </h2>
-          <p className={`text-sm max-w-2xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <p className={`text-sm max-w-2xl mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
             Explore our comprehensive inventory of 20+ specialized fiber laser cutting and welding components. Filter by category, compatible brand, or search by spec.
           </p>
         </div>
 
         {/* Filter Controls Bar */}
         <div className={`p-4 rounded-2xl border space-y-4 ${
-          darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-md'
+          darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
         }`}>
           {/* Top Controls Row */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -98,7 +92,7 @@ export const ProductShowcase = ({
                       ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
                       : darkMode
                       ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'
                   }`}
                 >
                   {cat}
@@ -119,7 +113,9 @@ export const ProductShowcase = ({
                     setCurrentPage(1);
                   }}
                   className={`w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border focus:outline-none focus:ring-2 ${
-                    darkMode ? 'bg-slate-800 border-slate-700 text-white focus:ring-cyan-500' : 'bg-slate-50 border-slate-300 text-slate-900 focus:ring-blue-500'
+                    darkMode 
+                      ? 'bg-slate-800 border-slate-700 text-white focus:ring-cyan-500' 
+                      : 'bg-slate-50 border-slate-200 text-slate-900 focus:ring-sky-400'
                   }`}
                 />
                 <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400" />
@@ -130,7 +126,9 @@ export const ProductShowcase = ({
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className={`py-1.5 px-3 text-xs rounded-xl border font-medium focus:outline-none ${
-                  darkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-slate-50 border-slate-300 text-slate-800'
+                  darkMode 
+                    ? 'bg-slate-800 border-slate-700 text-slate-200' 
+                    : 'bg-slate-50 border-slate-200 text-slate-700'
                 }`}
               >
                 <option value="featured">Sort: Featured</option>
@@ -143,28 +141,42 @@ export const ProductShowcase = ({
 
           {/* Active Filter Tags Bar */}
           {(selectedCategory !== "All" || selectedBrand !== "All" || searchTerm) && (
-            <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-xs">
+            <div className={`pt-2 border-t flex items-center justify-between text-xs ${
+              darkMode ? 'border-slate-800/60' : 'border-slate-100'
+            }`}>
               <div className="flex items-center space-x-2 flex-wrap gap-1">
-                <span className="text-slate-400 font-medium">Active Filters:</span>
+                <span className={`font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Active Filters:</span>
                 {selectedCategory !== "All" && (
-                  <span className="bg-cyan-950 text-cyan-400 border border-cyan-800 px-2 py-0.5 rounded font-mono">
+                  <span className={`px-2 py-0.5 rounded font-mono ${
+                    darkMode 
+                      ? 'bg-cyan-950 text-cyan-400 border border-cyan-800' 
+                      : 'bg-cyan-50 text-cyan-700 border border-cyan-200'
+                  }`}>
                     Category: {selectedCategory}
                   </span>
                 )}
                 {selectedBrand !== "All" && (
-                  <span className="bg-blue-950 text-blue-400 border border-blue-800 px-2 py-0.5 rounded font-mono">
+                  <span className={`px-2 py-0.5 rounded font-mono ${
+                    darkMode 
+                      ? 'bg-blue-950 text-blue-400 border border-blue-800' 
+                      : 'bg-blue-50 text-blue-700 border border-blue-200'
+                  }`}>
                     Brand: {selectedBrand}
                   </span>
                 )}
                 {searchTerm && (
-                  <span className="bg-amber-950 text-amber-400 border border-amber-800 px-2 py-0.5 rounded font-mono">
+                  <span className={`px-2 py-0.5 rounded font-mono ${
+                    darkMode 
+                      ? 'bg-amber-950 text-amber-400 border border-amber-800' 
+                      : 'bg-amber-50 text-amber-700 border border-amber-200'
+                  }`}>
                     Query: "{searchTerm}"
                   </span>
                 )}
               </div>
               <button
                 onClick={handleResetFilters}
-                className="text-cyan-400 hover:underline flex items-center space-x-1 font-semibold"
+                className="text-cyan-600 hover:underline flex items-center space-x-1 font-semibold"
               >
                 <RefreshCw className="w-3 h-3" />
                 <span>Reset All</span>
@@ -189,11 +201,10 @@ export const ProductShowcase = ({
             </AnimatePresence>
           </div>
         ) : (
-          /* Empty Search State */
           <div className={`p-12 rounded-2xl text-center space-y-4 border ${
-            darkMode ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700'
+            darkMode ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-600'
           }`}>
-            <PackageX className="w-12 h-12 text-slate-500 mx-auto" />
+            <PackageX className="w-12 h-12 text-slate-400 mx-auto" />
             <h3 className="text-lg font-bold">No Products Found</h3>
             <p className="text-xs text-slate-400 max-w-md mx-auto">
               We couldn't find any laser spare parts matching your active filter criteria. Try resetting filters or search for another term.
@@ -210,8 +221,10 @@ export const ProductShowcase = ({
 
         {/* Pagination Bar */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-            <span className="text-xs text-slate-400 font-mono">
+          <div className={`flex items-center justify-between pt-4 border-t ${
+            darkMode ? 'border-slate-800' : 'border-slate-200'
+          }`}>
+            <span className={`text-xs font-mono ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
               Showing {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} of {filteredProducts.length} items
             </span>
 
@@ -221,8 +234,10 @@ export const ProductShowcase = ({
                 onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
                 className={`p-2 rounded-xl border text-xs transition-colors ${
                   currentPage === 1 
-                    ? 'opacity-40 cursor-not-allowed border-slate-800' 
-                    : darkMode ? 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-white' : 'bg-white hover:bg-slate-100 border-slate-300 text-slate-900'
+                    ? 'opacity-40 cursor-not-allowed border-slate-300' 
+                    : darkMode 
+                      ? 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-white' 
+                      : 'bg-white hover:bg-slate-100 border-slate-300 text-slate-700'
                 }`}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -249,8 +264,10 @@ export const ProductShowcase = ({
                 onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
                 className={`p-2 rounded-xl border text-xs transition-colors ${
                   currentPage === totalPages 
-                    ? 'opacity-40 cursor-not-allowed border-slate-800' 
-                    : darkMode ? 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-white' : 'bg-white hover:bg-slate-100 border-slate-300 text-slate-900'
+                    ? 'opacity-40 cursor-not-allowed border-slate-300' 
+                    : darkMode 
+                      ? 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-white' 
+                      : 'bg-white hover:bg-slate-100 border-slate-300 text-slate-700'
                 }`}
               >
                 <ChevronRight className="w-4 h-4" />
