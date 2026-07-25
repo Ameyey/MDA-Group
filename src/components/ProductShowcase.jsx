@@ -162,6 +162,7 @@ export const ProductShowcase = ({
                       : 'bg-blue-50 text-blue-700 border border-blue-200'
                   }`}>
                     Brand: {selectedBrand}
+                    
                   </span>
                 )}
                 {searchTerm && (

@@ -1,44 +1,50 @@
 import React from 'react';
 
+
 export const ProductVisual = ({ visualType, className = "w-full h-48" }) => {
+ 
   switch (visualType) {
     case 'nozzle':
     case 'single_nozzle':
     case 'double_nozzle':
-      return (
+     
+      return (        
         <div className={`relative flex items-center justify-center bg-gradient-to-br from-amber-500/10 via-amber-600/5 to-transparent rounded-xl p-4 overflow-hidden border border-amber-500/20 group-hover:border-amber-500/40 transition-all ${className}`}>
           <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
-          <svg viewBox="0 0 160 160" className="w-32 h-32 transform group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.3)]">
-            <defs>
-              <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <svg viewBox="0 0 160 160" className="w-32 h-32 transform group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.3)]"> 
+            <defs>                       
+           
+             <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#f59e0b" />
                 <stop offset="50%" stopColor="#d97706" />
                 <stop offset="100%" stopColor="#b45309" />
-              </linearGradient>
-              <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+               
+              </linearGradient> 
+               <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#94a3b8" />
                 <stop offset="50%" stopColor="#e2e8f0" />
                 <stop offset="100%" stopColor="#64748b" />
-              </linearGradient>
+              </linearGradient> 
             </defs>
             {/* Thread top */}
-            <rect x="50" y="20" width="60" height="25" rx="3" fill="url(#copperGrad)" stroke="#78350f" strokeWidth="1.5" />
+             <rect x="50" y="20" width="60" height="25" rx="3" fill="url(#copperGrad)" stroke="#78350f" strokeWidth="1.5" />
             <line x1="50" y1="28" x2="110" y2="28" stroke="#78350f" strokeWidth="1" strokeDasharray="3 2" />
             <line x1="50" y1="36" x2="110" y2="36" stroke="#78350f" strokeWidth="1" strokeDasharray="3 2" />
-            
+             
             {/* Hexagon flange */}
-            <path d="M 40 45 L 120 45 L 110 65 L 50 65 Z" fill="url(#chromeGrad)" stroke="#334155" strokeWidth="1.5" />
+           <path d="M 40 45 L 120 45 L 110 65 L 50 65 Z" fill="url(#chromeGrad)" stroke="#334155" strokeWidth="1.5" /> 
             
             {/* Tapered cone body */}
-            <path d="M 50 65 L 110 65 L 90 125 L 70 125 Z" fill="url(#copperGrad)" stroke="#78350f" strokeWidth="1.5" />
+             <path d="M 50 65 L 110 65 L 90 125 L 70 125 Z" fill="url(#copperGrad)" stroke="#78350f" strokeWidth="1.5" /> 
             
             {/* Tip orifice */}
-            <ellipse cx="80" cy="125" rx="10" ry="4" fill="#451a03" />
+             <ellipse cx="80" cy="125" rx="10" ry="4" fill="#451a03" />
             <circle cx="80" cy="125" r="3" fill="#fef08a" className="animate-pulse" />
-            
+             
             {/* Beam laser simulation line */}
-            <line x1="80" y1="10" x2="80" y2="150" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="6 3" className="opacity-75" />
-          </svg>
+             <line x1="80" y1="10" x2="80" y2="150" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="6 3" className="opacity-75" /> 
+
+                      </svg>
           <span className="absolute bottom-2 right-2 text-[10px] font-mono font-bold text-amber-500 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">
             {visualType === 'single_nozzle' ? 'N2 SINGLE' : visualType === 'double_nozzle' ? 'O2 DUAL' : 'COPPER CNC'}
           </span>

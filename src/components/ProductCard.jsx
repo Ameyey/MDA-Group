@@ -10,6 +10,10 @@ export const ProductCard = ({
   onGetQuote 
 }) => {
   const [imgError, setImgError] = useState(false);
+  // console.log(product.imageUrl)
+
+  const [Image , Setimg]=useState("")
+  
 
   return (
     <motion.div
@@ -28,6 +32,7 @@ export const ProductCard = ({
       <div>
         {/* Top Header: Badge & Category */}
         <div className="flex items-center justify-between gap-2 mb-3">
+         
           <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
             product.badge === 'Best Seller' 
               ? 'bg-amber-50 text-amber-600 border border-amber-200' 
@@ -39,6 +44,7 @@ export const ProductCard = ({
           </span>
           <span className={`text-[11px] font-mono truncate ${darkMode ? 'text-slate-400' : 'text-slate-400'}`}>
             {product.category}
+           
           </span>
         </div>
 
@@ -51,15 +57,18 @@ export const ProductCard = ({
               : 'bg-slate-100 border-slate-200'
           }`}
         >
-          {product.imageUrl && !imgError ? (
+          
+          {product.imageUrl && !imgError ? ( 
             <img 
               src={product.imageUrl} 
               alt={product.name}
+              
               onError={() => setImgError(true)}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
           ) : (
-            <ProductVisual visualType={product.visualType} className="w-full h-full" />
+           <ProductVisual visualType={product.visualType}     className="w-full h-full" />
+           
           )}
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60"></div>

@@ -15,7 +15,7 @@ export const BRANDS = [
           RAY<tspan fill="currentColor">TOOLS</tspan>
         </text>
         <path d="M165 15 L185 30 L165 45 Z" fill="currentColor" />
-      </svg>
+      </svg>     
     )
   },
   {

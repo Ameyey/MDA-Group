@@ -1,5 +1,7 @@
 import { PRODUCT_IMAGES } from './images';
 
+
+
 export const PRODUCTS = [
   {
     id: "prod-1",

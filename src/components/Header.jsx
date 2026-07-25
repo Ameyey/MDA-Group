@@ -29,8 +29,7 @@ export const Header = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#hero" },
-    { name: "Trusted Brands", href: "#brands" },
+    { name: "Home", href: "#hero" },    
     { name: "Featured Products", href: "#products" },
     { name: "Max Fibier Laser", href: "#gallery" },
     { name: "Team", href: "#team" },   
