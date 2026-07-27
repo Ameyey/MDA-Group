@@ -6,8 +6,8 @@ import { GALLERY_12_IMAGES } from '../data/images';
 export const GallerySection = ({ darkMode }) => {
   const [activeTab, setActiveTab] = useState("All");
   const [activeLightboxItem, setActiveLightboxItem] = useState(null);
-
-  const categories = ["All", "Laser Processing", "Laser Heads", "Optics & Lenses", "Nozzles", "Laser Sources", "Electronics"];
+ // they add Gallery Section 
+  const categories = ["All", "Laser Processing", "Laser Heads", "Optics & Lenses", "Nozzles", "Laser Sources", "Electronics" , "Fiber Optice Continuous Laser" , "Fiber Optice Welding Laser"]; // add muno bar
 
   const filteredItems = activeTab === "All" 
     ? GALLERY_12_IMAGES 

@@ -95,7 +95,7 @@ export const Footer = ({ darkMode }) => {
         <div className="space-y-4">
           <h4 className="text-sm font-bold text-white uppercase tracking-wider">Accepted Payment Options</h4>
           <div className="flex flex-wrap gap-2 text-slate-300">
-            <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-[10px] font-bold">UPI / PhonePe</span>
+            <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-[10px] font-bold">UPI / PhonePe / Gpay</span>
             <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-[10px] font-bold">Visa / Mastercard</span>
             <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-[10px] font-bold">NEFT / RTGS</span>
             <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-[10px] font-bold">GST Billing</span>

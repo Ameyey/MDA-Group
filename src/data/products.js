@@ -82,7 +82,7 @@ export const PRODUCTS = [
   {
     id: "prod-5",
     name: "Protective Lens",
-    category: "Optics & Lenses",
+    category: "",
     compatibleBrands: ["Raytools", "Precitec", "BOCI", "WSX", "SUP", "Han's Laser"],
     shortDesc: "Fused Silica AR-coated protective window (27.9x4.1, 37x7, 30x5) for fiber laser heads.",
     fullDesc: "High damage threshold JGS1 Synthetic Fused Silica optical window. Double-sided anti-reflective (AR) coating at 1064nm wavelength delivers >99.8% laser transmission and maximum protection against spatter and debris.",
@@ -101,7 +101,7 @@ export const PRODUCTS = [
   {
     id: "prod-6",
     name: "Focus Lens",
-    category: "Optics & Lenses",
+    category: "Laser Source",
     compatibleBrands: ["Raytools", "Precitec", "BOCI", "WSX", "Han's Laser"],
     shortDesc: "Doublet/Singlet AR-coated focusing lens assembly for high intensity laser beam waist.",
     fullDesc: "Precision polished plano-convex and meniscus focus lens pairs. Engineered to minimize spherical aberration and thermal lensing at power levels up to 20KW.",
@@ -120,7 +120,7 @@ export const PRODUCTS = [
   {
     id: "prod-7",
     name: "Collimating Lens",
-    category: "Optics & Lenses",
+    category: "Laser Source",
     compatibleBrands: ["Raytools", "Precitec", "BOCI", "WSX"],
     shortDesc: "Collimation lens unit to transform divergent fiber laser output into parallel beam.",
     fullDesc: "High accuracy optical collimator lens set designed for fiber delivery input. Ensures crisp beam shaping with minimal focal drift over long continuous cutting runs.",
@@ -196,7 +196,7 @@ export const PRODUCTS = [
   {
     id: "prod-11",
     name: "Sensor Cable",
-    category: "Electronics & Cables",
+    category: "WSX Laser Cutting Head",
     compatibleBrands: ["Raytools", "Precitec", "BOCI", "Friendess", "WSX"],
     shortDesc: "Low-loss RF coaxial sensor cable for capacitance height tracking signals.",
     fullDesc: "Flexible high-frequency shielded coaxial sensor cable connecting ceramic ring to capacitance height sensor board. Resistant to spatter, oil, flex stress, and EMI interference.",
@@ -250,7 +250,7 @@ export const PRODUCTS = [
   {
     id: "prod-14",
     name: "Servo Motor",
-    category: "Electronics & Cables",
+    category: "WSX Laser Cutting Head",
     compatibleBrands: ["Friendess", "Han's Laser", "Yaskawa", "Panasonic"],
     shortDesc: "High response AC servo motor & amplifier drive for CNC gantry X/Y/Z motion control.",
     fullDesc: "Industrial high precision AC servo motor with 24-bit absolute encoder. Delivers rapid acceleration, smooth torque output, and millisecond positioning accuracy for laser machine gantries.",
@@ -269,7 +269,7 @@ export const PRODUCTS = [
   {
     id: "prod-15",
     name: "Laser Power Supply",
-    category: "Electronics & Cables",
+    category: "WSX Laser Cutting Head",
     compatibleBrands: ["Raycus", "MAX Photonics", "IPG Photonics"],
     shortDesc: "Regulated DC power supply unit for laser pump diode modules and fiber laser drivers.",
     fullDesc: "Heavy-duty industrial switching power supply engineered for high current pulse loads of fiber laser generator modules. Features over-voltage, short-circuit, and thermal protection.",
@@ -287,7 +287,7 @@ export const PRODUCTS = [
   {
     id: "prod-16",
     name: "Height Controller",
-    category: "Electronics & Cables",
+    category: "WSX Laser Cutting Head",
     compatibleBrands: ["Friendess", "Raytools", "Precitec", "BOCI"],
     shortDesc: "BCS100 capacitance height controller system for automatic Z-axis tracking.",
     fullDesc: "Industry-standard FSCUT BCS100 capacitance height adjustment controller system. Includes controller unit, preamp box, and interconnecting cables for non-contact standoff height regulation.",
@@ -360,7 +360,7 @@ export const PRODUCTS = [
   {
     id: "prod-20",
     name: "Fiber Cable",
-    category: "Electronics & Cables",
+    category: "WSX Laser Cutting Head",
     compatibleBrands: ["Raycus", "MAX Photonics", "IPG Photonics"],
     shortDesc: "QBH / QCS fiber delivery armor cable assembly for continuous high power transmission.",
     fullDesc: "Flexible armored fiber optic beam delivery cable equipped with standardized QBH/QCS optical head termination. Designed for lossless transmission of multi-kilowatt fiber laser power.",
@@ -379,9 +379,18 @@ export const PRODUCTS = [
 
 export const CATEGORIES = [
   "All",
-  "Nozzles & Ceramics",
-  "Optics & Lenses",
-  "Cutting Heads",
-  "Electronics & Cables",
-  "Consumables & Maintenance"
+  "Nozzles & Ceramics & Laser Nozzle",
+  // "Laser Source",
+  // "Cutting Heads",  
+  // "Consumables & Maintenance",
+  "OSPRI Laser Cutting Head",
+  "PRECITEC Laser Cutting Head",
+  "RAYTOOLS Laser Cutting Head",
+  "WSX Laser Cutting Head",
+  "BOCHU Laser Cutting Head",
+  "Laser Source",
+  "FSCUT Controller",
+
+
+
 ];

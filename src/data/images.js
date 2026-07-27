@@ -55,70 +55,52 @@ export const GALLERY_12_IMAGES = [
     title: "MAX MFSC 1500W-6000W Single Module Fiber Laser Source",
     category: "Optics & Lenses",
     tag: "1064nm AR Coated"
+  },  
+  //  Fiber Optice Continuous Laser 
+  {
+    id: 13,
+    url: "https://5.imimg.com/data5/SELLER/Default/2026/2/580699014/MO/LV/DY/92863266/max-fiber-laser-source-mfsc-2000-w.png",
+    title: "Max Fiber Laser Source",
+    category: "Fiber Optice Continuous Laser",
+    tag: "12KW CNC"
   },
   {
-    id: 4,
-    url: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80",
-    title: "CNC Pure Copper Laser Nozzles",
-    category: "Nozzles",
-    tag: "Tellurium Copper"
+    id: 14,
+    url: "",
+    title: "Max Fiber Laser Source",
+    category: "Fiber Optice Continuous Laser",
+    tag: "12KW CNC"
   },
   {
-    id: 5,
-    url: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80",
-    title: "Zirconia Dielectric Ceramic Sensor Rings",
-    category: "Ceramics",
-    tag: "Capacitance Sensing"
+    id: 15,
+    url: "",
+    title: "Max Fiber Laser Source",
+    category: "Fiber Optice Continuous Laser",
+    tag: "12KW CNC"
+  },
+  // Fiber Optice Welding Laser
+  {
+    id: 16,
+    url: "",
+    title: "Max Fiber Laser Source",
+    category: "Fiber Optice Welding Laser",
+    tag: "12KW CNC"
   },
   {
-    id: 6,
-    url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    title: "FSCUT BCS100 Height Controller Cards",
-    category: "Electronics",
-    tag: "Friendess CNC"
+    id: 17,
+    url: "",
+    title: "Max Fiber Laser Source",
+    category: "Fiber Optice Welding Laser",
+    tag: "12KW CNC"
   },
   {
-    id: 7,
-    url: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
-    title: "MAX Photonics 6000W Fiber Source Unit",
-    category: "Laser Sources",
-    tag: "6KW Continuous"
+    id: 18,
+    url: "",
+    title: "Max Fiber Laser Source",
+    category: "Fiber Optice Welding Laser",
+    tag: "12KW CNC"
   },
-  {
-    id: 8,
-    url: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
-    title: "Raycus Continuous Fiber Laser Generators",
-    category: "Laser Sources",
-    tag: "RFL-C12000"
-  },
-  {
-    id: 9,
-    url: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
-    title: "Precitec ProCutter 2.0 Laser Head Setup",
-    category: "Laser Heads",
-    tag: "German Optics"
-  },
-  {
-    id: 10,
-    url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
-    title: "QBH Armored Fiber Delivery Cables",
-    category: "Fiber Cables",
-    tag: "100um Core"
-  },
-  {
-    id: 11,
-    url: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80",
-    title: "D30 Focusing & Collimator Lens Sets",
-    category: "Optics & Lenses",
-    tag: "F125 / F150"
-  },
-  {
-    id: 12,
-    url: "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=800&q=80",
-    title: "Precision Gas Pressure Regulators & Filters",
-    category: "Consumables",
-    tag: "30 Bar Rated"
-  },
+
   
 ];
 
