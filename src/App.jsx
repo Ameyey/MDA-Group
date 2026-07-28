@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
+import ImageManagementModule from './components/ImageManagementModule';
 import { Hero } from './components/Hero';
 import { TrustedBrands } from './components/TrustedBrands';
 import { ProductShowcase } from './components/ProductShowcase';
@@ -20,6 +21,7 @@ export function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('All');
   const [activeSection, setActiveSection] = useState('hero');
+  const [currentPage, setCurrentPage] = useState('home');
 
   // Modal States
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
@@ -63,6 +65,19 @@ export function App() {
     }
   };
 
+  const handleNavigatePage = (page) => {
+    setCurrentPage(page);
+    if (page === 'dashboard') {
+      setActiveSection('dashboard');
+      return;
+    }
+    setActiveSection('hero');
+    const element = document.querySelector('#hero');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className={`min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'}`}>
       
@@ -76,57 +91,65 @@ export function App() {
         onOpenQuoteModal={handleOpenQuoteModal}
         activeSection={activeSection}
         setActiveSection={setActiveSection}
+        currentPage={currentPage}
+        onNavigatePage={handleNavigatePage}
       />
 
-      {/* Hero Section with Full-Width Background Image */}
-      <Hero
-        onOpenQuoteModal={handleOpenQuoteModal}
-        onExploreClick={handleExploreClick}
-      />
+      {currentPage === 'dashboard' ? (
+        <div id="dashboard">
+          <ImageManagementModule onBackToHome={() => handleNavigatePage('home')} />
+        </div>
+      ) : (
+        <>
+          {/* Hero Section with Full-Width Background Image */}
+          <Hero
+            onOpenQuoteModal={handleOpenQuoteModal}
+            onExploreClick={handleExploreClick}
+          />
 
-      
+          {/* Main Product Showcase Grid (All 20 Spares with HD Images, Prices, Badges) */}
+          <ProductShowcase
+            darkMode={darkMode}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            selectedBrand={selectedBrand}
+            setSelectedBrand={setSelectedBrand}
+            onQuickView={handleQuickView}
+            onGetQuote={handleOpenQuoteModal}
+          />
 
-      {/* Main Product Showcase Grid (All 20 Spares with HD Images, Prices, Badges) */}
-      <ProductShowcase
-        darkMode={darkMode}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        selectedBrand={selectedBrand}
-        setSelectedBrand={setSelectedBrand}
-        onQuickView={handleQuickView}
-        onGetQuote={handleOpenQuoteModal}
-      />
+          {/* Brand-Wise Products Matrix */}
+          {/* <BrandWiseSection
+            darkMode={darkMode}
+            onGetQuote={handleOpenQuoteModal}
+          /> */}
 
-      {/* Brand-Wise Products Matrix */}
-      {/* <BrandWiseSection
-        darkMode={darkMode}
-        onGetQuote={handleOpenQuoteModal}
-      /> */}
+          {/* Product & Warehouse Gallery (12 HD Images Grid) */}
+          <GallerySection
+            darkMode={darkMode}
+          />
 
-      {/* Product & Warehouse Gallery (12 HD Images Grid) */}
-      <GallerySection
-        darkMode={darkMode}
-      />
+          {/* Verified Customer Reviews (4 Customer Photos) */}
+          <TestimonialsSection
+            darkMode={darkMode}
+          />
 
-      {/* Verified Customer Reviews (4 Customer Photos) */}
-      <TestimonialsSection
-        darkMode={darkMode}
-      />
+          {/* Meet Our Expert Team (5 Team Member Photos) */}
+          {/* <TeamSection
+            darkMode={darkMode}
+          /> */}
 
-      {/* Meet Our Expert Team (5 Team Member Photos) */}
-      <TeamSection
-        darkMode={darkMode}
-      />
+          {/* FAQ Accordion Section */}
+          {/* <FAQSection
+            darkMode={darkMode}
+          /> */}
 
-      {/* FAQ Accordion Section */}
-      {/* <FAQSection
-        darkMode={darkMode}
-      /> */}
-
-      {/* Request a Quote Form Section */}
-      <QuoteSection
-        darkMode={darkMode}
-      />
+          {/* Request a Quote Form Section */}
+          <QuoteSection
+            darkMode={darkMode}
+          />
+        </>
+      )}
 
       {/* Footer with Payment Options & Partner Logos */}
       <Footer

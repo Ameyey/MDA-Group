@@ -24,21 +24,42 @@ export const Header = ({
   quoteItemsCount, 
   onOpenQuoteModal,
   activeSection,
-  setActiveSection
+  setActiveSection,
+  currentPage,
+  onNavigatePage
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#hero" },    
-    { name: "Featured Products", href: "#products" },
-    { name: "Max Fibier Laser", href: "#gallery" },
-    { name: "Team", href: "#team" },   
-    { name: "Contact Us", href: "#contact" }
+    { name: 'Dashboard', href: '#dashboard' },
+    { name: 'Home', href: '#hero' },
+    { name: 'Featured Products', href: '#products' },
+    { name: 'Max Fibier Laser', href: '#gallery' },
+    { name: 'Team', href: '#team' },
+    { name: 'Contact Us', href: '#contact' }
   ];
 
   const handleNavClick = (href) => {
-    setActiveSection(href.replace('#', ''));
     setMobileMenuOpen(false);
+
+    if (href === '#dashboard') {
+      onNavigatePage('dashboard');
+      setActiveSection('dashboard');
+      return;
+    }
+
+    if (href === '#hero') {
+      onNavigatePage('home');
+      setActiveSection('hero');
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      return;
+    }
+
+    onNavigatePage('home');
+    setActiveSection(href.replace('#', ''));
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -92,9 +113,9 @@ export const Header = ({
       }`}>
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           
-          <a href="#hero" onClick={() => handleNavClick('#hero')} className="group">
+          <button type="button" onClick={() => handleNavClick('#hero')} className="group">
             <MDALogo className="w-12 h-12" showText={true} darkMode={darkMode} />
-          </a>
+          </button>
 
           {/* Desktop Search Bar */}
           <div className="hidden md:flex items-center flex-1 max-w-xs relative">

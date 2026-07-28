@@ -12,7 +12,7 @@ export const INDUSTRY_IMAGES = {
 };
 
 export const PRODUCT_IMAGES = {
-  "prod-1": "", // Laser Nozzle https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg
+  "prod-1": "https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg", // Laser Nozzle 
   "prod-2": "", // Single Layer Nozzle https://www.osprilaser.com/uploads/37372/intelligent-information-cutting-head-20eef1.jpg
   "prod-3": "", // Double Layer Nozzle https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg
   "prod-4": "", // Ceramic Ring
@@ -55,7 +55,7 @@ export const GALLERY_12_IMAGES = [
     title: "MAX MFSC 1500W-6000W Single Module Fiber Laser Source",
     category: "Optics & Lenses",
     tag: "1064nm AR Coated"
-  },  
+  },
   //  Fiber Optice Continuous Laser 
   {
     id: 13,
@@ -101,7 +101,52 @@ export const GALLERY_12_IMAGES = [
   //   tag: "12KW CNC"
   // },
 
-  
+
+];
+
+export const IMAGE_MANAGEMENT_CATALOG = [
+  {
+    id: 101,
+    title: "Fiber Laser Source",
+    altText: "Industrial laser source in production line",
+    category: "Laser Processing",
+    description: "High-power fiber laser source used in precision manufacturing.",
+    tags: ["laser", "manufacturing", "industrial"],
+    status: "Active",
+    uploadedAt: "2026-07-20T09:30:00.000Z",
+    fileSize: 1500000,
+    fileName: "fiber-laser-source.webp",
+    mimeType: "image/webp",
+    url: "https://5.imimg.com/data5/SELLER/Default/2026/2/580699014/MO/LV/DY/92863266/max-fiber-laser-source-mfsc-2000-w.png"
+  },
+  {
+    id: 102,
+    title: "Warehouse Lighting Setup",
+    altText: "Modern lighting setup in warehouse",
+    category: "Infrastructure",
+    description: "Warehouse lighting installation with energy-efficient fixtures.",
+    tags: ["warehouse", "lighting", "energy"],
+    status: "Inactive",
+    uploadedAt: "2026-07-22T14:10:00.000Z",
+    fileSize: 1320000,
+    fileName: "warehouse-lighting.webp",
+    mimeType: "image/webp",
+    url: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: 103,
+    title: "Spare Parts Rack",
+    altText: "Organized spare parts storage rack",
+    category: "Storage",
+    description: "Optimized rack for spare parts inventory management.",
+    tags: ["storage", "rack", "inventory"],
+    status: "Active",
+    uploadedAt: "2026-07-24T08:45:00.000Z",
+    fileSize: 1780000,
+    fileName: "spare-parts-rack.webp",
+    mimeType: "image/webp",
+    url: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
+  }
 ];
 
 export const TESTIMONIAL_AVATARS = [
