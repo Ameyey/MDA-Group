@@ -12,26 +12,26 @@ export const INDUSTRY_IMAGES = {
 };
 
 export const PRODUCT_IMAGES = {
-  "prod-1": "https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg", // Laser Nozzle
-  "prod-2": "https://www.osprilaser.com/uploads/37372/intelligent-information-cutting-head-20eef1.jpg", // Single Layer Nozzle
-  "prod-3": "https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg", // Double Layer Nozzle
-  "prod-4": "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=80", // Ceramic Ring
-  "prod-5": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=600&q=80", // Protective Lens
-  "prod-6": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80", // Focus Lens
-  "prod-7": "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=600&q=80", // Collimating Lens
-  "prod-8": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80", // Laser Head
-  "prod-9": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80", // Raytools Head
-  "prod-10": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80", // BOCI Laser Head
-  "prod-11": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", // Sensor Cable
-  "prod-12": "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=80", // Laser Chiller Parts
-  "prod-13": "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80", // Consumables
-  "prod-14": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80", // Servo Motor
-  "prod-15": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80", // Power Supply
-  "prod-16": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80", // Height Controller
-  "prod-17": "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80", // Linear Guide
-  "prod-18": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80", // Air Filter
-  "prod-19": "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=80", // Gas Regulator
-  "prod-20": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80"  // Fiber Cable
+  "prod-1": "", // Laser Nozzle https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg
+  "prod-2": "", // Single Layer Nozzle https://www.osprilaser.com/uploads/37372/intelligent-information-cutting-head-20eef1.jpg
+  "prod-3": "", // Double Layer Nozzle https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg
+  "prod-4": "", // Ceramic Ring
+  "prod-5": "", // Protective Lens
+  "prod-6": "", // Focus Lens
+  "prod-7": "", // Collimating Lens
+  "prod-8": "", // Laser Head
+  "prod-9": "", // Raytools Head
+  "prod-10": "", // BOCI Laser Head
+  "prod-11": "", // Sensor Cable
+  "prod-12": "", // Laser Chiller Parts
+  "prod-13": "", // Consumables
+  "prod-14": "", // Servo Motor
+  "prod-15": "", // Power Supply
+  "prod-16": "", // Height Controller
+  "prod-17": "", // Linear Guide
+  "prod-18": "", // Air Filter
+  "prod-19": "", // Gas Regulator
+  "prod-20": ""  // Fiber Cable
 };
 
 export const GALLERY_12_IMAGES = [
@@ -59,7 +59,7 @@ export const GALLERY_12_IMAGES = [
   //  Fiber Optice Continuous Laser 
   {
     id: 13,
-    url: "https://5.imimg.com/data5/SELLER/Default/2026/2/580699014/MO/LV/DY/92863266/max-fiber-laser-source-mfsc-2000-w.png",
+    url: "",
     title: "Max Fiber Laser Source",
     category: "Fiber Optice Continuous Laser",
     tag: "12KW CNC"
@@ -79,27 +79,27 @@ export const GALLERY_12_IMAGES = [
     tag: "12KW CNC"
   },
   // Fiber Optice Welding Laser
-  {
-    id: 16,
-    url: "",
-    title: "Max Fiber Laser Source",
-    category: "Fiber Optice Welding Laser",
-    tag: "12KW CNC"
-  },
-  {
-    id: 17,
-    url: "",
-    title: "Max Fiber Laser Source",
-    category: "Fiber Optice Welding Laser",
-    tag: "12KW CNC"
-  },
-  {
-    id: 18,
-    url: "",
-    title: "Max Fiber Laser Source",
-    category: "Fiber Optice Welding Laser",
-    tag: "12KW CNC"
-  },
+  // {
+  //   id: 16,
+  //   url: "",
+  //   title: "Max Fiber Laser Source",
+  //   category: "Fiber Optice Welding Laser",
+  //   tag: "12KW CNC"
+  // },
+  // {
+  //   id: 17,
+  //   url: "",
+  //   title: "Max Fiber Laser Source",
+  //   category: "Fiber Optice Welding Laser",
+  //   tag: "12KW CNC"
+  // },
+  // {
+  //   id: 18,
+  //   url: "",
+  //   title: "Max Fiber Laser Source",
+  //   category: "Fiber Optice Welding Laser",
+  //   tag: "12KW CNC"
+  // },
 
   
 ];

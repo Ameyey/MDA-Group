@@ -22,7 +22,20 @@ export const QuoteModal = ({
     message: ''
   });
 
+  const message1 = `
+  Hello MDA Group,
+ I have submitted a quote request.
+
+Product: ${formData.productName}
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Quantity: ${formData.quantity}
+Message: ${formData.message}
+`;
+
   const [isSubmitted, setIsSubmitted] = useState(false);
+
 
   useEffect(() => {
     if (initialProduct) {
@@ -106,7 +119,7 @@ export const QuoteModal = ({
               
               <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
                 <a
-                  href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=Hello%20MDA%20Group,%20I%20just%20submitted%20a%20quote%20for%20${encodeURIComponent(formData.productName)}`}
+                  href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=Hello%20MDA%20Group,%20I%20just%20submitted%20a%20quote%20for%20${encodeURIComponent(message1)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-colors flex items-center justify-center space-x-2"

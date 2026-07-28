@@ -3,7 +3,7 @@ export const COMPANY_INFO = {
   subName: "Fiber Laser Spare Parts & Optics",
   tagline: "India's Trusted Supplier of Premium Fiber Laser Spare Parts & Precision Optics",
   phone: "+91 7720894610",
-  email: "mdagroup1007@gmail.com",
+  email: "mdagroup1007@gmail.com", //
   address: "Shinde Niwas, M No. 363, S.No. 13, Ganesh Colony, Hingne Khurd, Pune, Maharashtra 411051, India",
   whatsapp: "917720894610",
   whatsappLink: "https://wa.me/917720894610?text=Hello%20MDA%20Group,%20I%20am%20interested%20in%20Fiber%20Laser%20Spare%20Parts%20%26%20Optics.",

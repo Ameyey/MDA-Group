@@ -14,6 +14,7 @@ import { QuickViewModal } from './components/QuickViewModal';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { Footer } from './components/Footer';
 
+
 export function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');

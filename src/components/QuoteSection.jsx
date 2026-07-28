@@ -4,6 +4,8 @@ import { Send, Phone, Mail, MapPin, CheckCircle2, ShieldCheck, Clock } from 'luc
 import confetti from 'canvas-confetti';
 import { COMPANY_INFO } from '../data/additionalData';
 
+
+
 export const QuoteSection = ({ darkMode }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -15,6 +17,9 @@ export const QuoteSection = ({ darkMode }) => {
     message: ''
   });
 
+
+
+ console.log(formData)
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
@@ -27,6 +32,32 @@ export const QuoteSection = ({ darkMode }) => {
     setSubmitted(true);
   };
 
+  const sendWhatsApp = async () => {
+  try {
+    const message = `
+Hello MDA Group,
+
+I just submitted a quote request.
+
+    urgency: ' *Contact Details* ',
+    name: ${formData.name},
+    phone: ${formData.phone},,
+    email: ${formData.email},
+    company: ${formData.company},
+    partsNeeded: ${formData.partsNeeded},,
+    
+    message: ${formData.message},   
+
+
+`;
+
+    const url = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  } catch (error) {
+    console.error("Error opening WhatsApp:", error);
+  }
+};
   const inputClass = darkMode
     ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:ring-cyan-500'
     : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:ring-sky-400';
@@ -133,12 +164,21 @@ export const QuoteSection = ({ darkMode }) => {
                   <p className={`text-xs max-w-md mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                     Thank you {formData.name}! MDA Group team in Pune has received your inquiry. We will contact you at {formData.phone} shortly.
                   </p>
-                  <button
+                 <div className='' style={{ display: "flex", gap: "12px"  ,justifyContent: "center",}}>
+                   <button  
                     onClick={() => setSubmitted(false)}
-                    className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-colors"
+                    className=" bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-colors"
                   >
                     Submit Another Inquiry
                   </button>
+                   <button
+                    onClick={() => sendWhatsApp()}
+                    className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-colors"
+                  >
+                   Chat directly on WhatsApp
+                  </button>
+                 </div>
+
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 text-xs text-left">
