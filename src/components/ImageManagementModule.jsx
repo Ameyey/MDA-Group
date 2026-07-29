@@ -56,7 +56,7 @@ function createPreviewUrl(file) {
   return URL.createObjectURL(file);
 }
 
-function ImageManagementModule({ onBackToHome }) {
+export function ImageManagementModule({ onBackToHome }) {
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
   const [query, setQuery] = useState('');

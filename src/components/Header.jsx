@@ -152,16 +152,16 @@ export const Header = ({
                   handleNavClick(link.href);
                 }}
                 className={`transition-colors relative py-1 hover:text-cyan-600 ${
-                  activeSection === link.href.replace('#', '') 
-                    ? 'text-cyan-600 font-bold' 
+                  activeSection === link.href.replace('#', '')
+                    ? 'text-cyan-600 font-bold'
                     : darkMode ? 'text-slate-300' : 'text-slate-600'
                 }`}
               >
                 {link.name}
                 {activeSection === link.href.replace('#', '') && (
-                  <motion.div 
-                    layoutId="activeNavIndicator" 
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" 
+                  <motion.div
+                    layoutId="activeNavIndicator"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full"
                   />
                 )}
               </a>
@@ -249,8 +249,8 @@ export const Header = ({
                       handleNavClick(link.href);
                     }}
                     className={`px-3 py-2 text-sm rounded-md flex items-center justify-between ${
-                      darkMode 
-                        ? 'hover:bg-slate-800 text-slate-300' 
+                      darkMode
+                        ? 'hover:bg-slate-800 text-slate-300'
                         : 'hover:bg-slate-100 text-slate-700'
                     }`}
                   >

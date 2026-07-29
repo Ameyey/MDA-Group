@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#111827"/>
+  <rect x="180" y="220" width="840" height="460" rx="28" fill="#1f2937" stroke="#f59e0b" stroke-width="8"/>
+  <rect x="280" y="330" width="260" height="180" rx="16" fill="#f59e0b" fill-opacity="0.3"/>
+  <rect x="620" y="310" width="220" height="220" rx="20" fill="#f8fafc" fill-opacity="0.2"/>
+  <path d="M340 520L420 410L500 500" stroke="#fbbf24" stroke-width="16" fill="none"/>
+  <text x="600" y="760" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="44" fill="#fef3c7">Cooling Module</text>
+</svg>
