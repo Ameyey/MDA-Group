@@ -1,6 +1,8 @@
-import { PRODUCT_IMAGES } from './images';
+import { PRODUCT_IMAGE_METADATA, PRODUCT_IMAGES } from './images';
 
-
+const getProductImageUrl = (productId) => {
+  return PRODUCT_IMAGE_METADATA[productId]?.url || PRODUCT_IMAGES[productId] || '';
+};
 
 export const PRODUCTS = [
   {
@@ -12,7 +14,7 @@ export const PRODUCTS = [
     fullDesc: "Engineered from premium grade oxygen-free copper with high thermal conductivity. Specially polished interior wall ensures laminar gas flow, reducing dross and extending nozzle longevity during continuous 24/7 cutting operations.",
     badge: "Best Seller",
     pricePlaceholder: "₹ 450 - ₹ 1,200 / Unit",
-    imageUrl: PRODUCT_IMAGES["prod-1"],
+    imageUrl: getProductImageUrl("prod-1"),
     specs: {
       "Material": "Tellurium Copper / Chrome Plated",
       "Thread Size": "M11 / M14 / M15 / M16",
@@ -31,7 +33,7 @@ export const PRODUCTS = [
     fullDesc: "Single layer laser nozzles are engineered specifically for high-pressure nitrogen gas auxiliary cutting of stainless steel, aluminum alloys, and brass. Minimizes gas turbulence and prevents edge oxidation.",
     badge: "In Stock",
     pricePlaceholder: "₹ 450 - ₹ 950 / Unit",
-    imageUrl: PRODUCT_IMAGES["prod-2"],
+    imageUrl: getProductImageUrl("prod-2"),
     specs: {
       "Layer Type": "Single Layer (N2 Gas)",
       "Caliber": "1.0mm, 1.2mm, 1.5mm, 2.0mm, 2.5mm, 3.0mm",
@@ -50,7 +52,7 @@ export const PRODUCTS = [
     fullDesc: "Double layer nozzles contain an internal gas diffuser core that stabilizes low-pressure Oxygen gas flows required for cutting thick mild steel. Ensures clean pierce holes and smooth cut edges with minimal kerf width.",
     badge: "Popular",
     pricePlaceholder: "₹ 550 - ₹ 1,400 / Unit",
-    imageUrl: PRODUCT_IMAGES["prod-3"],
+    imageUrl: getProductImageUrl("prod-3"),
     specs: {
       "Layer Type": "Double Layer (O2 Gas)",
       "Caliber": "1.2mm, 1.5mm, 2.0mm, 2.5mm, 3.0mm, 4.0mm",
@@ -69,7 +71,7 @@ export const PRODUCTS = [
     fullDesc: "Ultra-precision ceramic sensor holder built with high temperature resistant technical ceramics and gold-plated alloy contacts. Transmits sensitive capacitance signals to height controller with zero thermal drift.",
     badge: "Essential",
     pricePlaceholder: "₹ 1,800 - ₹ 3,500 / Piece",
-    imageUrl: PRODUCT_IMAGES["prod-4"],
+    imageUrl: getProductImageUrl("prod-4"),
     specs: {
       "Diameter": "28mm, 32mm, 41mm, 48.5mm",
       "Body Material": "Zirconia / Alumina Technical Ceramic",
@@ -88,7 +90,7 @@ export const PRODUCTS = [
     fullDesc: "High damage threshold JGS1 Synthetic Fused Silica optical window. Double-sided anti-reflective (AR) coating at 1064nm wavelength delivers >99.8% laser transmission and maximum protection against spatter and debris.",
     badge: "Best Seller",
     pricePlaceholder: "₹ 850 - ₹ 2,200 / Lens",
-    imageUrl: PRODUCT_IMAGES["prod-5"],
+    imageUrl: getProductImageUrl("prod-5"),
     specs: {
       "Dimensions": "27.9x4.1mm, 37x7mm, 30x5mm, 24.9x1.5mm",
       "Substrate": "JGS1 Fused Silica (Quartz)",
@@ -107,7 +109,7 @@ export const PRODUCTS = [
     fullDesc: "Precision polished plano-convex and meniscus focus lens pairs. Engineered to minimize spherical aberration and thermal lensing at power levels up to 20KW.",
     badge: "High Precision",
     pricePlaceholder: "₹ 4,500 - ₹ 12,000 / Set",
-    imageUrl: PRODUCT_IMAGES["prod-6"],
+    imageUrl: getProductImageUrl("prod-6"),
     specs: {
       "Diameter": "D30mm, D37mm, D38.1mm, D50mm",
       "Focal Length": "F100mm, F125mm, F150mm, F200mm",
@@ -126,7 +128,7 @@ export const PRODUCTS = [
     fullDesc: "High accuracy optical collimator lens set designed for fiber delivery input. Ensures crisp beam shaping with minimal focal drift over long continuous cutting runs.",
     badge: "OEM Quality",
     pricePlaceholder: "₹ 5,200 - ₹ 14,500 / Set",
-    imageUrl: PRODUCT_IMAGES["prod-7"],
+    imageUrl: getProductImageUrl("prod-7"),
     specs: {
       "Diameter": "D30mm, D37mm, D38.1mm",
       "Focal Length": "F75mm, F100mm",
@@ -145,7 +147,7 @@ export const PRODUCTS = [
     fullDesc: "Complete heavy-duty fiber laser processing head featuring motorized auto-focus mechanism, internal temperature monitoring, dual protective glass drawers, and high pressure sealing.",
     badge: "New Arrival",
     pricePlaceholder: "₹ 1,25,000 - ₹ 3,80,000",
-    imageUrl: PRODUCT_IMAGES["prod-8"],
+    imageUrl: getProductImageUrl("prod-8"),
     specs: {
       "Power Capacity": "3KW - 12KW",
       "Focus Range": "-12mm to +10mm",
@@ -164,7 +166,7 @@ export const PRODUCTS = [
     fullDesc: "Original Raytools BM111 / BM114S series fiber laser cutting head with built-in motor drive unit. Allows programmable focus location changes automatically according to material thickness.",
     badge: "Best Seller",
     pricePlaceholder: "₹ 1,45,000 - ₹ 2,90,000",
-    imageUrl: PRODUCT_IMAGES["prod-9"],
+    imageUrl: getProductImageUrl("prod-9"),
     specs: {
       "Model Series": "BM111 / BM114S / BT240S",
       "Laser Interface": "QBH / QD",
@@ -183,7 +185,7 @@ export const PRODUCTS = [
     fullDesc: "Smart intelligent cutting head by BOCI equipped with real-time temperature, pressure and vibration monitoring sensors for ultra high speed cutting on 6KW to 30KW fiber lasers.",
     badge: "Smart Head",
     pricePlaceholder: "₹ 1,80,000 - ₹ 4,20,000",
-    imageUrl: PRODUCT_IMAGES["prod-10"],
+    imageUrl: getProductImageUrl("prod-10"),
     specs: {
       "Model": "BLT420 (6KW) / BLT641 (12KW/30KW)",
       "Sensor Tech": "Bus Communication Realtime Monitoring",
@@ -202,7 +204,7 @@ export const PRODUCTS = [
     fullDesc: "Flexible high-frequency shielded coaxial sensor cable connecting ceramic ring to capacitance height sensor board. Resistant to spatter, oil, flex stress, and EMI interference.",
     badge: "In Stock",
     pricePlaceholder: "₹ 1,200 - ₹ 3,200 / Unit",
-    imageUrl: PRODUCT_IMAGES["prod-11"],
+    imageUrl: getProductImageUrl("prod-11"),
     specs: {
       "Connector Type": "M12 5-Pin / SMA / BNC",
       "Cable Length": "1.5m, 2.0m, 3.0m, 5.0m",
@@ -221,7 +223,7 @@ export const PRODUCTS = [
     fullDesc: "Replacement maintenance spares for industrial water chillers (Hanli, S&A, Tongfei). Includes DI resin filter cartridges, flow switches, pressure gauges, and digital thermostat modules.",
     badge: "Maintenance",
     pricePlaceholder: "₹ 2,500 - ₹ 18,000 / Component",
-    imageUrl: PRODUCT_IMAGES["prod-12"],
+    imageUrl: getProductImageUrl("prod-12"),
     specs: {
       "Components": "DI Water Filter, Flow Switch, Water Pump, Solenoid Valve",
       "Resin Cartridge": "Deionizing Mixed Bed Resin",
@@ -239,7 +241,7 @@ export const PRODUCTS = [
     fullDesc: "Professional grade cleaning and maintenance consumables kit for optical lenses and laser heads. Contains lint-free microfiber wipes, high purity IPA swabs, and precision fluoro-rubber seals.",
     badge: "Kit",
     pricePlaceholder: "₹ 950 - ₹ 3,800 / Kit",
-    imageUrl: PRODUCT_IMAGES["prod-13"],
+    imageUrl: getProductImageUrl("prod-13"),
     specs: {
       "Included Items": "Cleanroom Swabs, Lens Cleaning Wipes, O-Ring Box, Silicone Grease",
       "Optic Cleanliness": "Grade 10 Cleanroom Safe",
@@ -256,7 +258,7 @@ export const PRODUCTS = [
     fullDesc: "Industrial high precision AC servo motor with 24-bit absolute encoder. Delivers rapid acceleration, smooth torque output, and millisecond positioning accuracy for laser machine gantries.",
     badge: "High Performance",
     pricePlaceholder: "₹ 18,500 - ₹ 65,000 / Motor",
-    imageUrl: PRODUCT_IMAGES["prod-14"],
+    imageUrl: getProductImageUrl("prod-14"),
     specs: {
       "Power Rating": "850W, 1.3KW, 1.8KW, 2.9KW",
       "Encoder": "24-bit Absolute Encoder",
@@ -275,7 +277,7 @@ export const PRODUCTS = [
     fullDesc: "Heavy-duty industrial switching power supply engineered for high current pulse loads of fiber laser generator modules. Features over-voltage, short-circuit, and thermal protection.",
     badge: "Heavy Duty",
     pricePlaceholder: "₹ 24,000 - ₹ 85,000 / Unit",
-    imageUrl: PRODUCT_IMAGES["prod-15"],
+    imageUrl: getProductImageUrl("prod-15"),
     specs: {
       "Output Voltage": "24V DC / 48V DC / 100V DC",
       "Current Output": "Up to 100A",
@@ -293,7 +295,7 @@ export const PRODUCTS = [
     fullDesc: "Industry-standard FSCUT BCS100 capacitance height adjustment controller system. Includes controller unit, preamp box, and interconnecting cables for non-contact standoff height regulation.",
     badge: "Industry Standard",
     pricePlaceholder: "₹ 35,000 - ₹ 78,000 / System",
-    imageUrl: PRODUCT_IMAGES["prod-16"],
+    imageUrl: getProductImageUrl("prod-16"),
     specs: {
       "Model": "BCS100 / CypOne Height Controller",
       "Sampling Speed": "1000 times/sec",
@@ -312,7 +314,7 @@ export const PRODUCTS = [
     fullDesc: "High rigidity precision linear guideways with self-aligning four-row steel ball circulation. Minimizes vibration at high cutting feeds up to 120 m/min.",
     badge: "Precision",
     pricePlaceholder: "₹ 4,200 - ₹ 16,000 / Meter",
-    imageUrl: PRODUCT_IMAGES["prod-17"],
+    imageUrl: getProductImageUrl("prod-17"),
     specs: {
       "Rail Width": "20mm, 25mm, 30mm, 35mm",
       "Accuracy Class": "H / P Grade",
@@ -330,7 +332,7 @@ export const PRODUCTS = [
     fullDesc: "Precision compressed air filter unit removes oil vapor, water droplets, and particulates down to 0.01 micron to prevent contamination of expensive laser protective windows.",
     badge: "Protective",
     pricePlaceholder: "₹ 6,500 - ₹ 22,000 / Unit",
-    imageUrl: PRODUCT_IMAGES["prod-18"],
+    imageUrl: getProductImageUrl("prod-18"),
     specs: {
       "Filter Efficiency": "99.999% @ 0.01 micron",
       "Max Pressure": "30 Bar (3.0 MPa)",
@@ -348,7 +350,7 @@ export const PRODUCTS = [
     fullDesc: "Heavy-duty gas regulator designed for high-flow Oxygen and Nitrogen assist gas delivery. Maintains stable output pressure under fluctuating supply cylinder pressures.",
     badge: "Heavy Duty",
     pricePlaceholder: "₹ 8,200 - ₹ 26,000 / Regulator",
-    imageUrl: PRODUCT_IMAGES["prod-19"],
+    imageUrl: getProductImageUrl("prod-19"),
     specs: {
       "Max Inlet Pressure": "300 Bar",
       "Outlet Pressure Range": "0 - 25 Bar",
@@ -366,7 +368,7 @@ export const PRODUCTS = [
     fullDesc: "Flexible armored fiber optic beam delivery cable equipped with standardized QBH/QCS optical head termination. Designed for lossless transmission of multi-kilowatt fiber laser power.",
     badge: "High Power",
     pricePlaceholder: "₹ 45,000 - ₹ 1,60,000 / Cable",
-    imageUrl: PRODUCT_IMAGES["prod-20"],
+    imageUrl: getProductImageUrl("prod-20"),
     specs: {
       "Fiber Core Diameter": "50um, 75um, 100um, 200um",
       "Armored Length": "10m, 15m, 20m",
@@ -374,7 +376,8 @@ export const PRODUCTS = [
       "Power Rating": "1000W - 30000W"
     },
     visualType: "fiber_cable"
-  }
+  },
+  
 ];
 
 export const CATEGORIES = [

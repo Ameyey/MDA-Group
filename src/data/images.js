@@ -11,27 +11,86 @@ export const INDUSTRY_IMAGES = {
   manufacturing: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" // Heavy Engineering CNC Factory
 };
 
-export const PRODUCT_IMAGES = {
-  "prod-1": "https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg", // Laser Nozzle 
-  "prod-2": "", // Single Layer Nozzle https://www.osprilaser.com/uploads/37372/intelligent-information-cutting-head-20eef1.jpg
-  "prod-3": "", // Double Layer Nozzle https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg
-  "prod-4": "", // Ceramic Ring
-  "prod-5": "", // Protective Lens
-  "prod-6": "", // Focus Lens
-  "prod-7": "", // Collimating Lens
-  "prod-8": "", // Laser Head
-  "prod-9": "", // Raytools Head
-  "prod-10": "", // BOCI Laser Head
-  "prod-11": "", // Sensor Cable
-  "prod-12": "", // Laser Chiller Parts
-  "prod-13": "", // Consumables
-  "prod-14": "", // Servo Motor
-  "prod-15": "", // Power Supply
-  "prod-16": "", // Height Controller
-  "prod-17": "", // Linear Guide
-  "prod-18": "", // Air Filter
-  "prod-19": "", // Gas Regulator
-  "prod-20": ""  // Fiber Cable
+const PRODUCT_IMAGES_STORAGE_KEY = 'product-image-metadata-catalog';
+
+const baseProductImages = {
+  'prod-1': 'https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg',
+  'prod-2': 'https://www.osprilaser.com/uploads/37372/intelligent-information-cutting-head-20eef1.jpg',
+  'prod-3': 'https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg',
+  'prod-4': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+  'prod-5': 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+  'prod-6': 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+  'prod-7': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
+  'prod-8': 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
+  'prod-9': 'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=800&q=80',
+  'prod-10': 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80',
+  'prod-11': 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
+  'prod-12': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+  'prod-13': 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+  'prod-14': 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+  'prod-15': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
+  'prod-16': 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
+  'prod-17': 'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=800&q=80',
+  'prod-18': 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80',
+  'prod-19': 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
+  'prod-20': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+   
+    
+};
+
+const readStoredProductImageMetadata = () => {
+  if (typeof window === 'undefined') return {};
+
+  try {
+    const raw = window.localStorage.getItem(PRODUCT_IMAGES_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+};
+
+const persistedProductImageMetadata = readStoredProductImageMetadata();
+
+export const PRODUCT_IMAGES = { ...baseProductImages };
+export const PRODUCT_IMAGE_METADATA = { ...persistedProductImageMetadata };
+
+Object.entries(PRODUCT_IMAGE_METADATA).forEach(([id, entry]) => {
+  if (entry && typeof entry === 'object' && typeof entry.url === 'string' && entry.url) {
+    PRODUCT_IMAGES[id] = entry.url;
+  }
+});
+
+export const upsertProductImageMetadata = (productId, imageData) => {
+  if (!productId || !imageData?.url) {
+    return PRODUCT_IMAGES;
+  }
+
+  const metadata = {
+    id: productId,
+    url: imageData.url,
+    title: imageData.title || '',
+    altText: imageData.altText || '',
+    category: imageData.category || '',
+    description: imageData.description || '',
+    tags: Array.isArray(imageData.tags) ? imageData.tags : [],
+    status: imageData.status || 'Active',
+    uploadedAt: imageData.uploadedAt || '',
+    fileName: imageData.fileName || '',
+    mimeType: imageData.mimeType || '',
+    fileSize: imageData.fileSize || 0,
+    productId
+  };
+
+  PRODUCT_IMAGES[productId] = imageData.url;
+  PRODUCT_IMAGE_METADATA[productId] = metadata;
+
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem(PRODUCT_IMAGES_STORAGE_KEY, JSON.stringify(PRODUCT_IMAGE_METADATA));
+  }
+
+  return PRODUCT_IMAGES;
 };
 
 export const GALLERY_12_IMAGES = [
