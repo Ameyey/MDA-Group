@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2, ShieldCheck, FileText, Phone, Award } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, FileText, Phone } from 'lucide-react';
 import { ProductVisual } from './ProductVisual';
 import { COMPANY_INFO } from '../data/additionalData';
 
@@ -11,6 +11,16 @@ export const QuickViewModal = ({
   darkMode 
 }) => {
   if (!product) return null;
+
+  const displayName = product.name || product.title || 'New Product Card';
+  const displayCategory = product.category || 'Custom';
+  const displayDescription = product.fullDesc || product.shortDesc || product.description || 'Added from the dashboard.';
+  const displayBrands = Array.isArray(product.compatibleBrands) && product.compatibleBrands.length ? product.compatibleBrands : ['Custom'];
+  const displaySpecs = product.specs && typeof product.specs === 'object' ? product.specs : {
+    Summary: displayDescription,
+    Source: product.customSource === 'dashboard' ? 'Dashboard upload' : 'Catalog'
+  };
+  const imageSource = product.imageUrl || product.url || '';
 
   return (
     <AnimatePresence>
@@ -34,7 +44,7 @@ export const QuickViewModal = ({
                   ? 'text-cyan-400 bg-cyan-950 border-cyan-800' 
                   : 'text-cyan-700 bg-cyan-50 border-cyan-200'
               }`}>
-                {product.category}
+                {displayCategory}
               </span>
               <span className="text-xs font-semibold text-emerald-600 flex items-center space-x-1">
                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -57,7 +67,11 @@ export const QuickViewModal = ({
             
             {/* Visual Column */}
             <div className="sm:col-span-5 space-y-3">
-              <ProductVisual visualType={product.visualType} className="w-full h-56 rounded-2xl" />
+              {imageSource ? (
+                <img src={imageSource} alt={displayName} className="h-56 w-full rounded-2xl object-cover" />
+              ) : (
+                <ProductVisual visualType={product.visualType || 'custom'} className="w-full h-56 rounded-2xl" />
+              )}
 
               <div className={`p-3 rounded-xl border space-y-1 ${
                 darkMode 
@@ -81,9 +95,9 @@ export const QuickViewModal = ({
             {/* Content Column */}
             <div className="sm:col-span-7 space-y-4 text-left">
               <div>
-                <h3 className="text-2xl font-black">{product.name}</h3>
+                <h3 className="text-2xl font-black">{displayName}</h3>
                 <p className={`text-xs mt-1 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                  {product.fullDesc}
+                  {displayDescription}
                 </p>
               </div>
 
@@ -95,7 +109,7 @@ export const QuickViewModal = ({
                   Compatible OEM Brands:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {product.compatibleBrands.map((brand) => (
+                  {displayBrands.map((brand) => (
                     <span 
                       key={brand} 
                       className={`text-xs font-semibold px-2.5 py-1 rounded border font-mono ${
@@ -122,7 +136,7 @@ export const QuickViewModal = ({
                     ? 'border-slate-800 divide-slate-800' 
                     : 'border-slate-200 divide-slate-100'
                 }`}>
-                  {Object.entries(product.specs).map(([key, val]) => (
+                  {Object.entries(displaySpecs).map(([key, val]) => (
                     <div key={key} className={`grid grid-cols-2 p-2 ${
                       darkMode ? 'bg-slate-950/60' : 'bg-slate-50'
                     }`}>

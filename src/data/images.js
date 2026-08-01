@@ -20,11 +20,11 @@ const baseProductImages = {
   'prod-3': 'https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg',
   'prod-4': '',
   'prod-5': '',
-  'prod-6': 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
-  'prod-7': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
-  'prod-8': 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
-  'prod-9': 'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=800&q=80',
-  'prod-10': 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80',
+  'prod-6': '',
+  'prod-7': '',
+  'prod-8': '',
+  'prod-9': '',
+  'prod-10': '',
   'prod-11': 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
   'prod-12': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
   'prod-13': 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
@@ -83,6 +83,39 @@ export const getCustomProductCards = () => {
   } catch {
     return [];
   }
+};
+
+export const removeCustomProductCard = (matcher) => {
+  const nextCards = getCustomProductCards().filter((card) => {
+    if (typeof matcher === 'function') {
+      return !matcher(card);
+    }
+
+    if (typeof matcher === 'string') {
+      return !(
+        card.id === matcher ||
+        card.name === matcher ||
+        card.imageUrl === matcher ||
+        card.shortDesc === matcher
+      );
+    }
+
+    if (matcher && typeof matcher === 'object') {
+      const matchesId = matcher.id && card.id === matcher.id;
+      const matchesName = matcher.name && card.name === matcher.name;
+      const matchesTitle = matcher.title && card.name === matcher.title;
+      const matchesUrl = (matcher.imageUrl || matcher.url) && card.imageUrl === (matcher.imageUrl || matcher.url);
+      return !(matchesId || matchesName || matchesTitle || matchesUrl);
+    }
+
+    return true;
+  });
+
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem(CUSTOM_PRODUCT_CARDS_STORAGE_KEY, JSON.stringify(nextCards));
+  }
+
+  return nextCards;
 };
 
 export const upsertCustomProductCard = (cardData) => {

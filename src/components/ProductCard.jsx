@@ -3,6 +3,12 @@ import { motion } from 'framer-motion';
 import { Eye, FileText, Tag } from 'lucide-react';
 import { ProductVisual } from './ProductVisual';
 
+const getProductImage = (product) => {
+  if (product.imageUrl) return product.imageUrl;
+  if (product.url) return product.url;
+  return '';
+};
+
 export const ProductCard = ({ 
   product, 
   darkMode, 
@@ -10,10 +16,13 @@ export const ProductCard = ({
   onGetQuote 
 }) => {
   const [imgError, setImgError] = useState(false);
-  // console.log(product.imageUrl)
-
-  const [Image , Setimg]=useState("")
-  
+  const imageSrc = getProductImage(product);
+  const displayName = product.name || product.title || 'New Product Card';
+  const displayCategory = product.category || 'Custom';
+  const displayDesc = product.shortDesc || product.fullDesc || product.description || 'Added from the dashboard.';
+  const displayBrands = Array.isArray(product.compatibleBrands) && product.compatibleBrands.length
+    ? product.compatibleBrands
+    : ['Custom'];
 
   return (
     <motion.div
@@ -43,7 +52,7 @@ export const ProductCard = ({
             {product.badge || 'Stocked'}
           </span>
           <span className={`text-[11px] font-mono truncate ${darkMode ? 'text-slate-400' : 'text-slate-400'}`}>
-            {product.category}
+            {displayCategory}
            
           </span>
         </div>
@@ -58,17 +67,15 @@ export const ProductCard = ({
           }`}
         >
           
-          {product.imageUrl && !imgError ? ( 
-            <img 
-              src={product.imageUrl} 
-              alt={product.name}
-              
+          {imageSrc && !imgError ? (
+            <img
+              src={imageSrc}
+              alt={displayName}
               onError={() => setImgError(true)}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
           ) : (
-           <ProductVisual visualType={product.visualType}     className="w-full h-full" />
-           
+            <ProductVisual visualType={product.visualType || 'custom'} className="w-full h-full" />
           )}
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60"></div>
@@ -87,7 +94,7 @@ export const ProductCard = ({
             darkMode ? 'text-white' : 'text-slate-900'
           }`}
         >
-          {product.name}
+          {displayName}
         </h3>
 
         {/* Price Placeholder */}
@@ -100,7 +107,7 @@ export const ProductCard = ({
         <p className={`text-xs mt-2 line-clamp-2 leading-relaxed ${
           darkMode ? 'text-slate-400' : 'text-slate-500'
         }`}>
-          {product.shortDesc}
+          {displayDesc}
         </p>
 
         {/* Compatible Brands Tags */}
@@ -111,7 +118,7 @@ export const ProductCard = ({
             Compatible Brands:
           </span>
           <div className="flex flex-wrap gap-1">
-            {product.compatibleBrands.slice(0, 3).map((brand) => (
+            {displayBrands.slice(0, 3).map((brand) => (
               <span 
                 key={brand} 
                 className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
@@ -123,9 +130,9 @@ export const ProductCard = ({
                 {brand}
               </span>
             ))}
-            {product.compatibleBrands.length > 3 && (
+            {displayBrands.length > 3 && (
               <span className="text-[10px] font-medium text-slate-400 px-1">
-                +{product.compatibleBrands.length - 3}
+                +{displayBrands.length - 3}
               </span>
             )}
           </div>

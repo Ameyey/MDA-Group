@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Sparkles, RefreshCw } from 'lucide-react';
 import { imageService } from '../services/imageService';
-import { resolveImageCatalogTargetProductId, upsertCustomProductCard, upsertProductImageMetadata } from '../data/images';
+import { removeCustomProductCard, resolveImageCatalogTargetProductId, upsertCustomProductCard, upsertProductImageMetadata } from '../data/images';
 import { StatsHeader } from './dashboard/StatsHeader';
 import { SearchFilterBar } from './dashboard/SearchFilterBar';
 import { ImageGrid } from './dashboard/ImageGrid';
@@ -146,10 +146,23 @@ export function ImageManagementModule({ onBackToHome: _onBackToHome }) {
 
   const deleteMutation = useMutation({
     mutationFn: (id) => imageService.deleteImage(id),
-    onSuccess: () => {
+    onSuccess: (_data, id) => {
+      const deletedImage = images.find((img) => img.id === id) || null;
+      if (deletedImage) {
+        removeCustomProductCard({
+          id: deletedImage.linkedProductId || deletedImage.productId || '',
+          name: deletedImage.title,
+          title: deletedImage.title,
+          imageUrl: deletedImage.url || deletedImage.imageUrl || ''
+        });
+      }
+
       queryClient.invalidateQueries({ queryKey: ['images'] });
       setDeleteTarget(null);
-      setSelectedIds((prev) => prev.filter((id) => id !== deleteTarget?.id));
+      setSelectedIds((prev) => prev.filter((itemId) => itemId !== id));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('image-catalog-updated'));
+      }
       setToast({ message: 'Image deleted from cloud storage.', type: 'info' });
     },
     onError: (err) => {
@@ -159,10 +172,25 @@ export function ImageManagementModule({ onBackToHome: _onBackToHome }) {
 
   const deleteBulkMutation = useMutation({
     mutationFn: (ids) => imageService.deleteBulkImages(ids),
-    onSuccess: (data) => {
+    onSuccess: (data, ids) => {
+      ids.forEach((id) => {
+        const deletedImage = images.find((img) => img.id === id) || null;
+        if (deletedImage) {
+          removeCustomProductCard({
+            id: deletedImage.linkedProductId || deletedImage.productId || '',
+            name: deletedImage.title,
+            title: deletedImage.title,
+            imageUrl: deletedImage.url || deletedImage.imageUrl || ''
+          });
+        }
+      });
+
       queryClient.invalidateQueries({ queryKey: ['images'] });
       setDeleteTarget(null);
       setSelectedIds([]);
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('image-catalog-updated'));
+      }
       setToast({ message: `${data.count || 'Selected'} images deleted successfully.`, type: 'info' });
     },
     onError: (err) => {
