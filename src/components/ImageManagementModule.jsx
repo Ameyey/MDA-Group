@@ -217,6 +217,8 @@ export function ImageManagementModule({ onBackToHome: _onBackToHome }) {
     const assignToProduct = (url) => {
       if (!url) return;
 
+      const priceValue = (form.pricePlaceholder || '').trim() || 'Contact for Price';
+
       if (form.createNewCard) {
         upsertCustomProductCard({
           id: `custom-prod-${Date.now()}`,
@@ -226,7 +228,7 @@ export function ImageManagementModule({ onBackToHome: _onBackToHome }) {
           shortDesc: form.description || 'Added from dashboard',
           fullDesc: form.description || 'Added from dashboard',
           badge: 'New',
-          pricePlaceholder: 'Contact for Price',
+          pricePlaceholder: priceValue,
           imageUrl: url,
           visualType: 'custom',
           customSource: 'dashboard',
@@ -246,7 +248,8 @@ export function ImageManagementModule({ onBackToHome: _onBackToHome }) {
           fileName: form.title.toLowerCase().replace(/\s+/g, '-') + '.jpg',
           mimeType: 'image/jpeg',
           fileSize: 0,
-          productId
+          productId,
+          pricePlaceholder: priceValue
         });
       }
 

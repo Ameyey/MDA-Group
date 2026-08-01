@@ -171,7 +171,8 @@ export const upsertProductImageMetadata = (productId, imageData) => {
     fileName: imageData.fileName || '',
     mimeType: imageData.mimeType || '',
     fileSize: imageData.fileSize || 0,
-    productId
+    productId,
+    pricePlaceholder: imageData.pricePlaceholder || ''
   };
 
   PRODUCT_IMAGES[productId] = imageData.url;

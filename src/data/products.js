@@ -4,16 +4,22 @@ const getProductImageUrl = (productId) => {
   return PRODUCT_IMAGE_METADATA[productId]?.url || PRODUCT_IMAGES[productId] || '';
 };
 
+const getProductPricePlaceholder = (productId) => {
+  return PRODUCT_IMAGE_METADATA[productId]?.pricePlaceholder || '';
+};
+
 export const getProducts = () => {
   const customCards = getCustomProductCards();
   const baseProducts = PRODUCTS.map((product) => ({
     ...product,
-    imageUrl: getProductImageUrl(product.id)
+    imageUrl: getProductImageUrl(product.id),
+    pricePlaceholder: getProductPricePlaceholder(product.id) || product.pricePlaceholder || 'Contact for Price'
   }));
 
   const customProducts = customCards.map((card) => ({
     ...card,
-    imageUrl: card.imageUrl || getProductImageUrl(card.id)
+    imageUrl: card.imageUrl || getProductImageUrl(card.id),
+    pricePlaceholder: card.pricePlaceholder || getProductPricePlaceholder(card.id) || 'Contact for Price'
   }));
 
   return [...baseProducts, ...customProducts];

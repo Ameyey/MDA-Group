@@ -50,6 +50,7 @@ export function ImageModal({
     category: 'Customer',
     description: '',
     tags: '',
+    pricePlaceholder: '',
     status: 'Active',
     productId: '',
     createNewCard: false
@@ -72,6 +73,7 @@ export function ImageModal({
           category: initialImage.category || 'Equipment',
           description: initialImage.description || '',
           tags: Array.isArray(initialImage.tags) ? initialImage.tags.join(', ') : initialImage.tags || '',
+          pricePlaceholder: initialImage.pricePlaceholder || initialImage.price || '',
           status: initialImage.status || 'Active',
           productId: initialImage.productId || '',
           createNewCard: false
@@ -86,6 +88,7 @@ export function ImageModal({
           category: 'Equipment',
           description: '',
           tags: '',
+          pricePlaceholder: '',
           status: 'Active',
           productId: '',
           createNewCard: false
@@ -453,6 +456,21 @@ export function ImageModal({
               placeholder="cnc, machinery, titanium, aerospace"
               className="w-full rounded-xl border border-slate-700/80 bg-slate-950 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
             />
+          </div>
+
+          {/* Price */}
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Price / Quote Text
+            </label>
+            <input
+              type="text"
+              value={form.pricePlaceholder}
+              onChange={(e) => setForm({ ...form, pricePlaceholder: e.target.value })}
+              placeholder="₹ 450 - ₹ 1,200 / Unit"
+              className="w-full rounded-xl border border-slate-700/80 bg-slate-950 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
+            />
+            <p className="mt-1 text-[10px] text-slate-500">This will appear on the homepage product card.</p>
           </div>
 
           {/* Product Card Assignment */}
