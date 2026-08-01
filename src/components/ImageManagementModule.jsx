@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Sparkles, RefreshCw } from 'lucide-react';
 import { imageService } from '../services/imageService';
+import { resolveImageCatalogTargetProductId, upsertCustomProductCard, upsertProductImageMetadata } from '../data/images';
 import { StatsHeader } from './dashboard/StatsHeader';
 import { SearchFilterBar } from './dashboard/SearchFilterBar';
 import { ImageGrid } from './dashboard/ImageGrid';
@@ -182,19 +183,88 @@ export function ImageManagementModule({ onBackToHome: _onBackToHome }) {
     setIsModalOpen(true);
   };
 
-  const handleFormSubmit = ({ form, files, mode, initialImage }) => {
+  const handleFormSubmit = ({ form, files, mode, initialImage, uploadMode, imageUrl }) => {
+    const tags = form.tags.split(',').map((t) => t.trim()).filter(Boolean);
+
+    const assignToProduct = (url) => {
+      if (!url) return;
+
+      if (form.createNewCard) {
+        upsertCustomProductCard({
+          id: `custom-prod-${Date.now()}`,
+          name: form.title,
+          category: form.category || 'Custom',
+          compatibleBrands: tags.length ? tags : ['Custom'],
+          shortDesc: form.description || 'Added from dashboard',
+          fullDesc: form.description || 'Added from dashboard',
+          badge: 'New',
+          pricePlaceholder: 'Contact for Price',
+          imageUrl: url,
+          visualType: 'custom',
+          customSource: 'dashboard',
+          createdAt: new Date().toISOString()
+        });
+      } else {
+        const productId = form.productId || resolveImageCatalogTargetProductId('prod-1');
+        upsertProductImageMetadata(productId, {
+          url,
+          title: form.title,
+          altText: form.altText,
+          category: form.category,
+          description: form.description,
+          tags,
+          status: form.status,
+          uploadedAt: new Date().toISOString(),
+          fileName: form.title.toLowerCase().replace(/\s+/g, '-') + '.jpg',
+          mimeType: 'image/jpeg',
+          fileSize: 0,
+          productId
+        });
+      }
+
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('image-catalog-updated'));
+      }
+    };
+
+    // Edit mode
     if (mode === 'edit' && initialImage) {
       updateMutation.mutate({
         id: initialImage.id,
         payload: {
           ...form,
-          tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean)
+          tags
+        }
+      }, {
+        onSuccess: () => {
+          const resolvedUrl = initialImage.url || imageUrl || '';
+          assignToProduct(resolvedUrl);
         }
       });
       return;
     }
 
-    // Create mode: Check single vs multi upload
+    // Create mode: URL-based
+    if (uploadMode === 'url' && imageUrl) {
+      const urlPayload = {
+        title: form.title,
+        altText: form.altText,
+        category: form.category,
+        description: form.description,
+        tags: form.tags,
+        status: form.status,
+        url: imageUrl
+      };
+
+      createMutation.mutate(urlPayload, {
+        onSuccess: () => {
+          assignToProduct(imageUrl);
+        }
+      });
+      return;
+    }
+
+    // Create mode: File upload (existing flow)
     const formData = new FormData();
     formData.append('title', form.title);
     formData.append('category', form.category);
@@ -205,13 +275,22 @@ export function ImageManagementModule({ onBackToHome: _onBackToHome }) {
 
     if (files.length > 1) {
       files.forEach((file) => formData.append('images', file));
-      createMultiMutation.mutate(formData);
+      createMultiMutation.mutate(formData, {
+        onSuccess: (data) => {
+          const uploadedImages = Array.isArray(data?.images) ? data.images : [];
+          uploadedImages.forEach((entry) => assignToProduct(entry?.url));
+        }
+      });
     } else if (files.length === 1) {
       formData.append('image', files[0]);
-      // Pass local Object URL for local fallback
       const objectUrl = URL.createObjectURL(files[0]);
       formData.append('previewUrl', objectUrl);
-      createMutation.mutate(formData);
+      createMutation.mutate(formData, {
+        onSuccess: (data) => {
+          const uploadedUrl = data?.image?.url || data?.url || objectUrl;
+          assignToProduct(uploadedUrl);
+        }
+      });
     }
   };
 

@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, SlidersHorizontal, ChevronLeft, ChevronRight, RefreshCw, PackageX } from 'lucide-react';
-import { PRODUCTS, CATEGORIES } from '../data/products';
+import { CATEGORIES, getProducts } from '../data/products';
 import { ProductCard } from './ProductCard';
 
 export const ProductShowcase = ({ 
@@ -16,10 +16,23 @@ export const ProductShowcase = ({
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("featured");
   const [currentPage, setCurrentPage] = useState(1);
+  const [catalogVersion, setCatalogVersion] = useState(0);
   const itemsPerPage = 8;
 
+  useEffect(() => {
+    const handleCatalogUpdate = () => setCatalogVersion((value) => value + 1);
+    window.addEventListener('image-catalog-updated', handleCatalogUpdate);
+    window.addEventListener('storage', handleCatalogUpdate);
+    return () => {
+      window.removeEventListener('image-catalog-updated', handleCatalogUpdate);
+      window.removeEventListener('storage', handleCatalogUpdate);
+    };
+  }, []);
+
+  const products = useMemo(() => getProducts(), [catalogVersion]);
+
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return products.filter((product) => {
       const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
       const matchesBrand = selectedBrand === "All" || 
         product.compatibleBrands.some(b => b.toLowerCase().includes(selectedBrand.toLowerCase()));

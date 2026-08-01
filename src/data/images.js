@@ -12,13 +12,14 @@ export const INDUSTRY_IMAGES = {
 };
 
 const PRODUCT_IMAGES_STORAGE_KEY = 'product-image-metadata-catalog';
+const CUSTOM_PRODUCT_CARDS_STORAGE_KEY = 'custom-product-cards';
 
 const baseProductImages = {
   'prod-1': 'https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg',
   'prod-2': 'https://www.osprilaser.com/uploads/37372/intelligent-information-cutting-head-20eef1.jpg',
   'prod-3': 'https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg',
-  'prod-4': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
-  'prod-5': 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+  'prod-4': '',
+  'prod-5': '',
   'prod-6': 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
   'prod-7': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
   'prod-8': 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
@@ -61,6 +62,63 @@ Object.entries(PRODUCT_IMAGE_METADATA).forEach(([id, entry]) => {
     PRODUCT_IMAGES[id] = entry.url;
   }
 });
+
+export const resolveImageCatalogTargetProductId = (preferredProductId) => {
+  if (preferredProductId && PRODUCT_IMAGES[preferredProductId]) {
+    return preferredProductId;
+  }
+
+  const fallbackId = Object.keys(PRODUCT_IMAGES).find((id) => !PRODUCT_IMAGES[id]);
+  return preferredProductId || fallbackId || 'prod-1';
+};
+
+export const getCustomProductCards = () => {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const raw = window.localStorage.getItem(CUSTOM_PRODUCT_CARDS_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+export const upsertCustomProductCard = (cardData) => {
+  if (!cardData?.name || !cardData?.imageUrl) {
+    return [];
+  }
+
+  const nextCards = [...getCustomProductCards()];
+  const existingIndex = nextCards.findIndex((card) => card.id === cardData.id);
+  const entry = {
+    id: cardData.id || `custom-prod-${Date.now()}`,
+    name: cardData.name,
+    category: cardData.category || 'Custom',
+    compatibleBrands: Array.isArray(cardData.compatibleBrands) && cardData.compatibleBrands.length ? cardData.compatibleBrands : ['Custom'],
+    shortDesc: cardData.shortDesc || cardData.description || 'Added from dashboard',
+    fullDesc: cardData.fullDesc || cardData.description || 'Added from dashboard',
+    badge: cardData.badge || 'New',
+    pricePlaceholder: cardData.pricePlaceholder || 'Contact for Price',
+    imageUrl: cardData.imageUrl,
+    visualType: cardData.visualType || 'custom',
+    customSource: cardData.customSource || 'dashboard',
+    createdAt: cardData.createdAt || new Date().toISOString()
+  };
+
+  if (existingIndex >= 0) {
+    nextCards[existingIndex] = entry;
+  } else {
+    nextCards.push(entry);
+  }
+
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem(CUSTOM_PRODUCT_CARDS_STORAGE_KEY, JSON.stringify(nextCards));
+  }
+
+  return nextCards;
+};
 
 export const upsertProductImageMetadata = (productId, imageData) => {
   if (!productId || !imageData?.url) {

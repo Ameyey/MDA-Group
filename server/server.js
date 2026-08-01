@@ -238,6 +238,48 @@ app.post('/api/images/upload-multiple', upload.array('images', 15), (req, res) =
   }
 });
 
+// POST image via external URL (no file upload needed)
+app.post('/api/images/upload-url', (req, res) => {
+  try {
+    const { url, title, altText, category, description, tags, status } = req.body;
+
+    if (!url || typeof url !== 'string') {
+      return res.status(400).json({ message: 'A valid image URL is required.' });
+    }
+
+    const tagsArray = typeof tags === 'string'
+      ? tags.split(',').map((t) => t.trim()).filter(Boolean)
+      : Array.isArray(tags) ? tags : [];
+
+    const newEntry = {
+      id: `img-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      title: title || 'External Image',
+      altText: altText || title || 'External Image',
+      category: category || 'Customer',
+      description: description || '',
+      tags: tagsArray.length > 0 ? tagsArray : ['url-import'],
+      status: status || 'Active',
+      uploadedAt: new Date().toISOString(),
+      fileName: '',
+      originalName: '',
+      fileSize: 0,
+      mimeType: 'image/url',
+      localPath: '',
+      url: url
+    };
+
+    const records = readDatabase();
+    records.unshift(newEntry);
+    writeDatabase(records);
+
+    console.log(`✅ External URL image added: ${url}`);
+    res.status(201).json(newEntry);
+  } catch (error) {
+    console.error('URL upload handler error:', error);
+    res.status(500).json({ message: 'Failed to save URL image.', error: error.message });
+  }
+});
+
 // PUT update image details
 app.put('/api/images/:id', (req, res) => {
   const records = readDatabase();

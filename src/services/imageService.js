@@ -28,9 +28,15 @@ export const imageService = {
     }
   },
 
-  createImage: async (formData) => {
+  createImage: async (formDataOrPayload) => {
     try {
-      const response = await imageApiClient.post('/images/upload', formData, {
+      // If it's a plain object with a url field, use the URL endpoint
+      if (formDataOrPayload && !(formDataOrPayload instanceof FormData) && formDataOrPayload.url) {
+        const response = await imageApiClient.post('/images/upload-url', formDataOrPayload);
+        return response.data;
+      }
+      // Otherwise use the file upload endpoint
+      const response = await imageApiClient.post('/images/upload', formDataOrPayload, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       return response.data;

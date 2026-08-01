@@ -1,7 +1,22 @@
-import { PRODUCT_IMAGE_METADATA, PRODUCT_IMAGES } from './images';
+import { getCustomProductCards, PRODUCT_IMAGE_METADATA, PRODUCT_IMAGES } from './images';
 
 const getProductImageUrl = (productId) => {
   return PRODUCT_IMAGE_METADATA[productId]?.url || PRODUCT_IMAGES[productId] || '';
+};
+
+export const getProducts = () => {
+  const customCards = getCustomProductCards();
+  const baseProducts = PRODUCTS.map((product) => ({
+    ...product,
+    imageUrl: getProductImageUrl(product.id)
+  }));
+
+  const customProducts = customCards.map((card) => ({
+    ...card,
+    imageUrl: card.imageUrl || getProductImageUrl(card.id)
+  }));
+
+  return [...baseProducts, ...customProducts];
 };
 
 export const PRODUCTS = [

@@ -76,7 +76,7 @@ export function LoginScreen({ onLogin, errorMessage }) {
           ) : null}
         </div>
 
-        <div className="w-full max-w-xl rounded-3xl border border-slate-800/70 bg-slate-900/50 p-8 shadow-xl shadow-slate-950/40 backdrop-blur">
+        {/* <div className="w-full max-w-xl rounded-3xl border border-slate-800/70 bg-slate-900/50 p-8 shadow-xl shadow-slate-950/40 backdrop-blur">
           <div className="flex items-center gap-2 text-cyan-300">
             <Sparkles className="h-5 w-5" />
             <span className="text-sm font-semibold uppercase tracking-[0.2em]">Dashboard highlights</span>
@@ -102,7 +102,7 @@ export function LoginScreen({ onLogin, errorMessage }) {
             <p className="mt-1">Username: root</p>
             <p>Password: 12345</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
