@@ -1,11 +1,59 @@
+import 'dotenv/config';
 import express from 'express';
 import multer from 'multer';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
+import { MongoClient } from 'mongodb';
+import { v2 as cloudinary } from 'cloudinary';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const app = express();
 const port = process.env.PORT || 4000;
+const mongoUri = process.env.MONGODB_URI || 'mongodb://ameybahugune_db_user:tgdJLg0wFRJKN7H3@ac-1dba0lz-shard-00-00.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-01.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-02.4cro3hw.mongodb.net:27017/?ssl=true&replicaSet=atlas-l0p3ru-shard-0&authSource=admin&appName=Cluster0' ;
+const mongoDbName = process.env.MONGODB_DB_NAME || 'project_adi';
+
+let mongoClient;
+let imageCollection;
+let mongoReady = false;
+
+async function connectMongo() {
+  if (mongoClient && mongoClient.topology?.isConnected?.()) {
+    return mongoClient;
+  }
+
+  try {
+    mongoClient = new MongoClient(mongoUri, {
+      serverSelectionTimeoutMS: 8000,
+      connectTimeoutMS: 8000
+    });
+
+    await mongoClient.connect();
+    const db = mongoClient.db(mongoDbName);
+    imageCollection = db.collection('images');
+    await imageCollection.createIndex({ id: 1 }, { unique: true, sparse: true });
+    await imageCollection.createIndex({ uploadedAt: -1 });
+    mongoReady = true;
+    return mongoClient;
+  } catch (error) {
+    mongoReady = false;
+    imageCollection = null;
+    console.warn('MongoDB connection failed:', error.message , error);
+    throw error;
+  }
+}
+
+connectMongo().then(() => {
+  console.log(`✅ MongoDB connected to database: ${mongoDbName}`);
+}).catch((err) => {
+  mongoReady = false;
+  console.error('MongoDB connection failed:', err.message);
+});
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -21,67 +69,91 @@ if (!fs.existsSync(imagesDir)) {
 app.use('/public/images', express.static(imagesDir));
 app.use('/images', express.static(imagesDir));
 
-// JSON Database persistence file
-const dbPath = path.resolve('server/data/db.json');
-const dbDir = path.dirname(dbPath);
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
-
-// Read database records
-function readDatabase() {
-  if (!fs.existsSync(dbPath)) {
-    const initialData = [
-      {
-        id: 'img-cust-1',
-        title: 'Enterprise Client Site Installation',
-        altText: 'Customer site machinery installation team',
-        category: 'Customer',
-        description: 'On-site industrial machinery deployment and handover ceremony with key client representatives.',
-        tags: ['customer', 'installation', 'enterprise', 'site-visit'],
-        status: 'Active',
-        uploadedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-        fileName: 'customer-site-install.jpg',
-        fileSize: 2150000,
-        mimeType: 'image/jpeg',
-        localPath: 'public/images/customer-site-install.jpg',
-        url: `http://localhost:${port}/public/images/customer-site-install.jpg`
-      },
-      {
-        id: 'img-event-1',
-        title: 'Annual Industrial Tech Expo 2026',
-        altText: 'Exhibition booth displaying automated robotic machinery',
-        category: 'Event',
-        description: 'High-tech industrial exhibition showcase featuring live robotic demonstrations and customer networking.',
-        tags: ['event', 'expo', 'robotics', 'exhibition'],
-        status: 'Active',
-        uploadedAt: new Date(Date.now() - 86400000).toISOString(),
-        fileName: 'industrial-tech-expo.jpg',
-        fileSize: 3420000,
-        mimeType: 'image/jpeg',
-        localPath: 'public/images/industrial-tech-expo.jpg',
-        url: `http://localhost:${port}/public/images/industrial-tech-expo.jpg`
-      }
-    ];
-    fs.writeFileSync(dbPath, JSON.stringify(initialData, null, 2), 'utf-8');
-    return initialData;
-  }
-
+async function readDatabase() {
   try {
-    const content = fs.readFileSync(dbPath, 'utf-8');
-    return JSON.parse(content || '[]');
-  } catch (err) {
-    console.error('Error reading JSON DB:', err.message);
+    await connectMongo();
+    if (!imageCollection) return [];
+
+    const docs = await imageCollection.find({}).sort({ uploadedAt: -1 }).toArray();
+    return docs.map((doc) => {
+      const { _id, ...rest } = doc;
+      return rest;
+    });
+  } catch (error) {
+    console.warn('MongoDB read failed:', error.message);
     return [];
   }
 }
 
-// Write database records
-function writeDatabase(records) {
+async function writeDatabase(records) {
   try {
-    fs.writeFileSync(dbPath, JSON.stringify(records, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing JSON DB:', err.message);
+    await connectMongo();
+    if (!imageCollection) return [];
+
+    const docs = records.map((record) => {
+      const normalized = { ...record };
+      delete normalized._id;
+      return normalized;
+    });
+
+    await imageCollection.deleteMany({});
+    if (docs.length) {
+      await imageCollection.insertMany(docs);
+    }
+
+    return docs;
+  } catch (error) {
+    console.warn('MongoDB write failed:', error.message);
+    throw error;
+  }
+}
+
+async function getImageById(id) {
+  try {
+    await connectMongo();
+    if (!imageCollection) return null;
+
+    const doc = await imageCollection.findOne({ id });
+    if (!doc) return null;
+
+    const { _id, ...rest } = doc;
+    return rest;
+  } catch (error) {
+    console.warn('MongoDB read failed:', error.message);
+    return null;
+  }
+}
+
+async function upsertImage(entry) {
+  try {
+    const normalized = { ...entry };
+    delete normalized._id;
+
+    await connectMongo();
+    if (!imageCollection) {
+      throw new Error('MongoDB collection is not available.');
+    }
+
+    await imageCollection.updateOne({ id: normalized.id }, { $set: normalized }, { upsert: true });
+    return { ...normalized, databaseStatus: 'mongodb' };
+  } catch (error) {
+    console.warn('MongoDB write failed:', error.message);
+    throw error;
+  }
+}
+
+async function deleteImageById(id) {
+  try {
+    await connectMongo();
+    if (!imageCollection) {
+      throw new Error('MongoDB collection is not available.');
+    }
+
+    const result = await imageCollection.deleteOne({ id });
+    return result.deletedCount > 0;
+  } catch (error) {
+    console.warn('MongoDB delete failed:', error.message);
+    throw error;
   }
 }
 
@@ -104,42 +176,51 @@ const upload = multer({
 });
 
 // GET all images with search, category, status filter
-app.get('/api/images', (req, res) => {
-  const { search, category, status } = req.query;
-  let records = readDatabase();
+app.get('/api/images', async (req, res) => {
+  try {
+    const { search, category, status } = req.query;
+    let records = await readDatabase();
 
-  if (search) {
-    const q = search.toLowerCase();
-    records = records.filter(
-      (img) =>
-        (img.title && img.title.toLowerCase().includes(q)) ||
-        (img.category && img.category.toLowerCase().includes(q)) ||
-        (img.description && img.description.toLowerCase().includes(q)) ||
-        (img.tags && img.tags.some((t) => t.toLowerCase().includes(q)))
-    );
+    if (search) {
+      const q = search.toLowerCase();
+      records = records.filter(
+        (img) =>
+          (img.title && img.title.toLowerCase().includes(q)) ||
+          (img.category && img.category.toLowerCase().includes(q)) ||
+          (img.description && img.description.toLowerCase().includes(q)) ||
+          (img.tags && img.tags.some((t) => t.toLowerCase().includes(q)))
+      );
+    }
+
+    if (category && category !== 'All') {
+      records = records.filter((img) => img.category === category);
+    }
+
+    if (status && status !== 'All') {
+      records = records.filter((img) => img.status === status);
+    }
+
+    res.json(records);
+  } catch (error) {
+    console.error('GET /api/images error:', error);
+    res.status(500).json({ message: 'Failed to fetch images from MongoDB.', error: error.message });
   }
-
-  if (category && category !== 'All') {
-    records = records.filter((img) => img.category === category);
-  }
-
-  if (status && status !== 'All') {
-    records = records.filter((img) => img.status === status);
-  }
-
-  res.json(records);
 });
 
 // GET single image by ID
-app.get('/api/images/:id', (req, res) => {
-  const records = readDatabase();
-  const image = records.find((img) => img.id === req.params.id);
-  if (!image) return res.status(404).json({ message: 'Image asset not found.' });
-  res.json(image);
+app.get('/api/images/:id', async (req, res) => {
+  try {
+    const image = await getImageById(req.params.id);
+    if (!image) return res.status(404).json({ message: 'Image asset not found.' });
+    res.json(image);
+  } catch (error) {
+    console.error('GET /api/images/:id error:', error);
+    res.status(500).json({ message: 'Failed to fetch image from MongoDB.', error: error.message });
+  }
 });
 
 // POST single image upload (Multer -> public/images/)
-app.post('/api/images/upload', upload.single('image'), (req, res) => {
+app.post('/api/images/upload', upload.single('image'), async (req, res) => {
   try {
     const file = req.file;
     if (!file) {
@@ -148,7 +229,11 @@ app.post('/api/images/upload', upload.single('image'), (req, res) => {
 
     const reqHost = `${req.protocol}://${req.get('host')}`;
     const relativePath = `public/images/${file.filename}`;
-    const publicUrl = `${reqHost}/public/images/${file.filename}`;
+    
+    const uploadResult = await cloudinary.uploader.upload(file.path, {
+      folder: 'project_adi_images',
+    });
+    const publicUrl = uploadResult.secure_url;
 
     const tagsArray = typeof req.body.tags === 'string'
       ? req.body.tags.split(',').map((t) => t.trim()).filter(Boolean)
@@ -168,23 +253,23 @@ app.post('/api/images/upload', upload.single('image'), (req, res) => {
       fileSize: file.size,
       mimeType: file.mimetype,
       localPath: relativePath,
+      cloudinaryId: uploadResult.public_id,
       url: publicUrl
     };
 
-    const records = readDatabase();
-    records.unshift(newEntry);
-    writeDatabase(records);
+    const savedEntry = await upsertImage(newEntry);
 
     console.log(`✅ File saved locally to disk: ${relativePath}`);
-    res.status(201).json(newEntry);
+    console.log(`🗄️ Upload completed. Database status: ${savedEntry.databaseStatus || 'mongodb'}`);
+    res.status(201).json({ ...savedEntry, databaseStatus: savedEntry.databaseStatus || 'mongodb' });
   } catch (error) {
     console.error('Upload handler error:', error);
-    res.status(500).json({ message: 'Local image upload failed.', error: error.message });
+    res.status(500).json({ message: 'Image upload failed while saving to MongoDB Atlas.', error: error.message });
   }
 });
 
 // POST multiple image upload (Multer -> public/images/)
-app.post('/api/images/upload-multiple', upload.array('images', 15), (req, res) => {
+app.post('/api/images/upload-multiple', upload.array('images', 15), async (req, res) => {
   try {
     const files = req.files || [];
     if (files.length === 0) {
@@ -192,12 +277,15 @@ app.post('/api/images/upload-multiple', upload.array('images', 15), (req, res) =
     }
 
     const reqHost = `${req.protocol}://${req.get('host')}`;
-    const records = readDatabase();
     const uploadedEntries = [];
 
     for (const file of files) {
       const relativePath = `public/images/${file.filename}`;
-      const publicUrl = `${reqHost}/public/images/${file.filename}`;
+      
+      const uploadResult = await cloudinary.uploader.upload(file.path, {
+        folder: 'project_adi_images',
+      });
+      const publicUrl = uploadResult.secure_url;
       const fileNameBase = path.parse(file.originalname).name;
 
       const tagsArray = typeof req.body.tags === 'string'
@@ -218,15 +306,15 @@ app.post('/api/images/upload-multiple', upload.array('images', 15), (req, res) =
         fileSize: file.size,
         mimeType: file.mimetype,
         localPath: relativePath,
+        cloudinaryId: uploadResult.public_id,
         url: publicUrl
       };
 
-      records.unshift(newEntry);
-      uploadedEntries.push(newEntry);
+      const savedEntry = await upsertImage(newEntry);
+      uploadedEntries.push({ ...savedEntry, databaseStatus: savedEntry.databaseStatus || 'mongodb' });
       console.log(`✅ File saved locally to disk: ${relativePath}`);
+      console.log(`🗄️ Upload completed. Database status: ${savedEntry.databaseStatus || 'local-only'}`);
     }
-
-    writeDatabase(records);
 
     res.status(201).json({
       message: `${uploadedEntries.length} images saved locally in public/images/`,
@@ -239,7 +327,7 @@ app.post('/api/images/upload-multiple', upload.array('images', 15), (req, res) =
 });
 
 // POST image via external URL (no file upload needed)
-app.post('/api/images/upload-url', (req, res) => {
+app.post('/api/images/upload-url', async (req, res) => {
   try {
     const { url, title, altText, category, description, tags, status } = req.body;
 
@@ -268,84 +356,106 @@ app.post('/api/images/upload-url', (req, res) => {
       url: url
     };
 
-    const records = readDatabase();
-    records.unshift(newEntry);
-    writeDatabase(records);
+    const savedEntry = await upsertImage(newEntry);
 
     console.log(`✅ External URL image added: ${url}`);
-    res.status(201).json(newEntry);
+    console.log(`🗄️ Upload completed. Database status: ${savedEntry.databaseStatus || 'mongodb'}`);
+    res.status(201).json({ ...savedEntry, databaseStatus: savedEntry.databaseStatus || 'mongodb' });
   } catch (error) {
     console.error('URL upload handler error:', error);
-    res.status(500).json({ message: 'Failed to save URL image.', error: error.message });
+    res.status(500).json({ message: 'Failed to save URL image to MongoDB Atlas.', error: error.message });
+  }
+});
+
+app.get('/api/health', async (_req, res) => {
+  try {
+    await connectMongo();
+    if (!imageCollection) {
+      return res.status(503).json({ status: 'unavailable', message: 'MongoDB collection is not ready.' });
+    }
+
+    const ping = await imageCollection.db.command({ ping: 1 });
+    res.json({ status: 'ok', database: mongoDbName, ping });
+  } catch (error) {
+    res.status(503).json({ status: 'unavailable', message: error.message });
   }
 });
 
 // PUT update image details
-app.put('/api/images/:id', (req, res) => {
-  const records = readDatabase();
-  const index = records.findIndex((img) => img.id === req.params.id);
-  if (index === -1) return res.status(404).json({ message: 'Image not found.' });
+app.put('/api/images/:id', async (req, res) => {
+  try {
+    const existing = await getImageById(req.params.id);
+    if (!existing) return res.status(404).json({ message: 'Image not found.' });
 
-  const current = records[index];
-  const tagsArray = typeof req.body.tags === 'string'
-    ? req.body.tags.split(',').map((t) => t.trim()).filter(Boolean)
-    : Array.isArray(req.body.tags) ? req.body.tags : current.tags;
+    const tagsArray = typeof req.body.tags === 'string'
+      ? req.body.tags.split(',').map((t) => t.trim()).filter(Boolean)
+      : Array.isArray(req.body.tags) ? req.body.tags : existing.tags;
 
-  const updatedEntry = {
-    ...current,
-    ...req.body,
-    tags: tagsArray,
-    id: req.params.id // Protect ID
-  };
+    const updatedEntry = {
+      ...existing,
+      ...req.body,
+      tags: tagsArray,
+      id: req.params.id
+    };
 
-  records[index] = updatedEntry;
-  writeDatabase(records);
-  res.json(updatedEntry);
+    await upsertImage(updatedEntry);
+    res.json(updatedEntry);
+  } catch (error) {
+    console.error('PUT /api/images/:id error:', error);
+    res.status(500).json({ message: 'Failed to update image in MongoDB.', error: error.message });
+  }
 });
 
 // DELETE single image (deletes record & disk file from public/images/)
-app.delete('/api/images/:id', (req, res) => {
-  const records = readDatabase();
-  const index = records.findIndex((img) => img.id === req.params.id);
-  if (index === -1) return res.status(404).json({ message: 'Image not found.' });
+app.delete('/api/images/:id', async (req, res) => {
+  try {
+    const existing = await getImageById(req.params.id);
+    if (!existing) return res.status(404).json({ message: 'Image not found.' });
 
-  const target = records[index];
-
-  // Remove physical file from public/images folder
-  if (target.fileName) {
-    const fullFilePath = path.resolve('public/images', target.fileName);
-    if (fs.existsSync(fullFilePath)) {
-      try {
-        fs.unlinkSync(fullFilePath);
-        console.log(`🗑️ Removed local disk file: ${fullFilePath}`);
-      } catch (err) {
-        console.warn(`Could not delete local file ${fullFilePath}:`, err.message);
+    if (existing.fileName) {
+      const fullFilePath = path.resolve('public/images', existing.fileName);
+      if (fs.existsSync(fullFilePath)) {
+        try {
+          fs.unlinkSync(fullFilePath);
+          console.log(`🗑️ Removed local disk file: ${fullFilePath}`);
+        } catch (err) {
+          console.warn(`Could not delete local file ${fullFilePath}:`, err.message);
+        }
       }
     }
+
+    if (existing.cloudinaryId) {
+      try {
+        await cloudinary.uploader.destroy(existing.cloudinaryId);
+        console.log(`🗑️ Removed Cloudinary asset: ${existing.cloudinaryId}`);
+      } catch (err) {
+        console.warn(`Could not delete Cloudinary asset ${existing.cloudinaryId}:`, err.message);
+      }
+    }
+
+    const deleted = await deleteImageById(req.params.id);
+    res.json({ success: deleted, id: req.params.id, message: deleted ? 'Image asset deleted from MongoDB.' : 'Image asset not found.' });
+  } catch (error) {
+    console.error('DELETE /api/images/:id error:', error);
+    res.status(500).json({ message: 'Failed to delete image from MongoDB.', error: error.message });
   }
-
-  records.splice(index, 1);
-  writeDatabase(records);
-
-  res.json({ success: true, id: req.params.id, message: 'Image asset deleted from local storage.' });
 });
 
 // POST bulk delete
-app.post('/api/images/delete-bulk', (req, res) => {
-  const { ids } = req.body;
-  if (!Array.isArray(ids) || ids.length === 0) {
-    return res.status(400).json({ message: 'No image IDs provided for deletion.' });
-  }
+app.post('/api/images/delete-bulk', async (req, res) => {
+  try {
+    const { ids } = req.body;
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ message: 'No image IDs provided for deletion.' });
+    }
 
-  let records = readDatabase();
-  const deletedIds = [];
+    const deletedIds = [];
+    for (const id of ids) {
+      const existing = await getImageById(id);
+      if (!existing) continue;
 
-  ids.forEach((id) => {
-    const idx = records.findIndex((img) => img.id === id);
-    if (idx !== -1) {
-      const target = records[idx];
-      if (target.fileName) {
-        const fullFilePath = path.resolve('public/images', target.fileName);
+      if (existing.fileName) {
+        const fullFilePath = path.resolve('public/images', existing.fileName);
         if (fs.existsSync(fullFilePath)) {
           try {
             fs.unlinkSync(fullFilePath);
@@ -355,13 +465,24 @@ app.post('/api/images/delete-bulk', (req, res) => {
           }
         }
       }
-      records.splice(idx, 1);
-      deletedIds.push(id);
-    }
-  });
 
-  writeDatabase(records);
-  res.json({ success: true, deletedIds, count: deletedIds.length });
+      if (existing.cloudinaryId) {
+        try {
+          await cloudinary.uploader.destroy(existing.cloudinaryId);
+        } catch (err) {
+          // ignore
+        }
+      }
+
+      const deleted = await deleteImageById(id);
+      if (deleted) deletedIds.push(id);
+    }
+
+    res.json({ success: true, deletedIds, count: deletedIds.length });
+  } catch (error) {
+    console.error('POST /api/images/delete-bulk error:', error);
+    res.status(500).json({ message: 'Failed to delete images from MongoDB.', error: error.message });
+  }
 });
 
 app.listen(port, () => {

@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "img-1785572961966-650",
+    "title": "MDA Group ",
+    "altText": "MDA Group ",
+    "category": "Equipment",
+    "description": "MDA Group ",
+    "tags": [
+      "MDA Group"
+    ],
+    "status": "Active",
+    "uploadedAt": "2026-08-01T08:29:21.966Z",
+    "fileName": "Screenshot-2026-07-23-112632-1785572961947-98775942.png",
+    "originalName": "Screenshot 2026-07-23 112632.png",
+    "fileSize": 32917,
+    "mimeType": "image/png",
+    "localPath": "public/images/Screenshot-2026-07-23-112632-1785572961947-98775942.png",
+    "url": "http://localhost:4000/public/images/Screenshot-2026-07-23-112632-1785572961947-98775942.png"
+  },
+  {
+    "id": "img-1785568772091-181",
+    "title": "MDG Group ",
+    "altText": "MDG Group ",
+    "category": "Equipment",
+    "description": "MDG Group is a diversified organization committed to delivering high-quality products and services across multiple industries. The company focuses on innovation, customer satisfaction, and operational excellence while building long-term relationships with clients and partners. With a professional team and a commitment to quality, MDG Group strives to provide reliable, efficient, and sustainable solutions that meet evolving business and customer needs.",
+    "tags": [
+      "toel"
+    ],
+    "status": "Active",
+    "uploadedAt": "2026-08-01T07:19:32.091Z",
+    "fileName": "Screenshot-2026-07-23-112632-1785568772082-202810331.png",
+    "originalName": "Screenshot 2026-07-23 112632.png",
+    "fileSize": 32917,
+    "mimeType": "image/png",
+    "localPath": "public/images/Screenshot-2026-07-23-112632-1785568772082-202810331.png",
+    "url": "http://localhost:4000/public/images/Screenshot-2026-07-23-112632-1785568772082-202810331.png"
+  }
+]

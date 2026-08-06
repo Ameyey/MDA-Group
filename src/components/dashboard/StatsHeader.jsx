@@ -28,7 +28,7 @@ export function StatsHeader({ stats }) {
     {
       title: 'Storage Capacity',
       value: formatBytes(stats.storageUsed),
-      sub: 'Cloud storage used',
+      sub: 'Cloud storage Limit: 512 MB ',
       icon: HardDrive,
       gradient: 'from-purple-500/20 to-indigo-500/10 border-purple-500/30 text-purple-400'
     }

@@ -25,16 +25,16 @@ const baseProductImages = {
   'prod-8': '',
   'prod-9': '',
   'prod-10': '',
-  'prod-11': 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
-  'prod-12': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
-  'prod-13': 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
-  'prod-14': 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
-  'prod-15': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
-  'prod-16': 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
-  'prod-17': 'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=800&q=80',
-  'prod-18': 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80',
-  'prod-19': 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80',
-  'prod-20': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+  'prod-11': '',
+  'prod-12': '',
+  'prod-13': '',
+  'prod-14': '',
+  'prod-15': '',
+  'prod-16': '',
+  'prod-17': '',
+  'prod-18': '',
+  'prod-19': '',
+  'prod-20': '',
    
     
 };
@@ -209,21 +209,21 @@ export const GALLERY_12_IMAGES = [
   },
   //  Fiber Optice Continuous Laser 
   {
-    id: 13,
+    id: 4,
     url: "",
     title: "Max Fiber Laser Source",
     category: "Fiber Optice Continuous Laser",
     tag: "12KW CNC"
   },
   {
-    id: 14,
+    id: 5,
     url: "",
     title: "Max Fiber Laser Source",
     category: "Fiber Optice Continuous Laser",
     tag: "12KW CNC"
   },
   {
-    id: 15,
+    id: 6,
     url: "",
     title: "Max Fiber Laser Source",
     category: "Fiber Optice Continuous Laser",
