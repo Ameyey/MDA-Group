@@ -1,0 +1,23 @@
+user : -ameybahugune_db_user
+ pas :- SNKStJIRpEv4VBkO
+
+mongodb+srv://<db_username>:SNKStJIRpEv4VBkO@cluster0.bxezzmf.mongodb.net/
+mongodb+srv://ameybahugune_db_user:SNKStJIRpEv4VBkO@image-management.5ztxywa.mongodb.net/
+mongodb+srv://ameybahugune_db_user:<db_password>@image-management.5ztxywa.mongodb.net/
+
+
+
+ameybahugune_db_user
+tgdJLg0wFRJKN7H3
+
+
+mongodb://ameybahugune_db_user:tgdJLg0wFRJKN7H3@ac-1dba0lz-shard-00-00.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-01.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-02.4cro3hw.mongodb.net:27017/?ssl=true&replicaSet=atlas-l0p3ru-shard-0&authSource=admin&appName=Cluster0
+
+mongodb+srv://ameybahugune_db_user:tgdJLg0wFRJKN7H3@cluster0.4cro3hw.mongodb.net/	
+
+
+api key :- 892586598691821
+api secret :- uT0fO-Kxhxld0ySHNdwfjmtWW7o
+Cloud name: dr6mru2ie
+
+

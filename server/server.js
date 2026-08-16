@@ -15,7 +15,7 @@ cloudinary.config({
 
 const app = express();
 const port = process.env.PORT || 4000;
-const mongoUri = process.env.MONGODB_URI || 'mongodb://ameybahugune_db_user:tgdJLg0wFRJKN7H3@ac-1dba0lz-shard-00-00.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-01.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-02.4cro3hw.mongodb.net:27017/?ssl=true&replicaSet=atlas-l0p3ru-shard-0&authSource=admin&appName=Cluster0' ;
+const mongoUri = process.env.MONGODB_URI || 'mongodb://ameybahugune_db_user:tgdJLg0wFRJKN7H3@ac-1dba0lz-shard-00-00.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-01.4cro3hw.mongodb.net:27017,ac-1dba0lz-shard-00-02.4cro3hw.mongodb.net:27017/?ssl=true&replicaSet=atlas-l0p3ru-shard-0&authSource=admin&appName=Cluster0';
 const mongoDbName = process.env.MONGODB_DB_NAME || 'project_adi';
 
 let mongoClient;
@@ -43,7 +43,7 @@ async function connectMongo() {
   } catch (error) {
     mongoReady = false;
     imageCollection = null;
-    console.warn('MongoDB connection failed:', error.message , error);
+    console.warn('MongoDB connection failed:', error.message, error);
     throw error;
   }
 }
@@ -229,7 +229,7 @@ app.post('/api/images/upload', upload.single('image'), async (req, res) => {
 
     const reqHost = `${req.protocol}://${req.get('host')}`;
     const relativePath = `public/images/${file.filename}`;
-    
+
     const uploadResult = await cloudinary.uploader.upload(file.path, {
       folder: 'project_adi_images',
     });
@@ -281,7 +281,7 @@ app.post('/api/images/upload-multiple', upload.array('images', 15), async (req, 
 
     for (const file of files) {
       const relativePath = `public/images/${file.filename}`;
-      
+
       const uploadResult = await cloudinary.uploader.upload(file.path, {
         folder: 'project_adi_images',
       });

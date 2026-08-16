@@ -8,37 +8,37 @@ export const TestimonialsSection = ({ darkMode }) => {
   const TESTIMONIALS_4 = [
     {
       id: 1,
-      name: "Rajesh Sharma",
+      name: "Avinash Shinde",
       role: "Plant Operations Manager",
-      company: "Apex Precision Sheet Metal, Pune",
-      content: "MDA Group is our go-to partner for Raytools laser nozzles and protective lenses. Their 27.9x4.1 optics last 30% longer than generic aftermarket parts and delivery in Pune is prompt!",
+      // company: "Apex Precision Sheet Metal, Pune",
+      content: "Excellent experience especially with this supplier. Spare parts are reasonably priced, delivery is always on time, and the service response is quick and reliable (best part from MNAGESH sir on time communication and follow up is best experienced) The welding machine we purchased is performing extremely well.",
       rating: 5,
       avatar: TESTIMONIAL_AVATARS[0]
     },
     {
       id: 2,
-      name: "Vikramaditya Kulkarni",
+      name: "Chetan Bagul",
       role: "Laser Maintenance Lead",
-      company: "LaserTech Solutions, Chakan Industrial Hub",
-      content: "When our 6KW Raycus source needed a replacement QBH cable and BOCI ceramic rings, MDA Group delivered genuine OEM spares within 4 hours. Phenomenal technical knowledge and service.",
-      rating: 5,
+      // company: "LaserTech Solutions, Chakan Industrial Hub",
+      content: "Nice to Service & spare parts available for Laser cutting, Laser welding machine all company brands & SLM",
+      rating: 4,
       avatar: TESTIMONIAL_AVATARS[1]
     },
     {
       id: 3,
-      name: "Amit Patel",
+      name: "Sachin Thorat",
       role: "Director of Manufacturing",
-      company: "Gujrat Fiber Fabrication Works, Ahmedabad",
-      content: "We purchased a complete OSPRI H20B auto-focus head along with Precitec sensor cables from MDA Group. Prices are very competitive and customer service is 10/10.",
+      // company: "Gujrat Fiber Fabrication Works, Ahmedabad",
+      content: "MDA Group provide best Cnc Laser Cutting Welding machines , services , spare parts at lower prices . Owner Mangesh Sir has expertise in sheet metal tooling and hardware. I recommaned MDA Group for Laser cutting machine , bending machine , laser fibre welding machine , all machine spare parts and consumable at best price all over india .",
       rating: 5,
       avatar: TESTIMONIAL_AVATARS[2]
     },
     {
       id: 4,
       name: "Sanjay Kumar",
-      role: "Laser Job Shop Owner",
-      company: "National CNC Cutting Works, Nashik",
-      content: "Sensors, single and double layer nozzles, and focus optics supplied by MDA Group are 100% verified. We have reduced our cutting downtime significantly.",
+      role: "Vaishnavi Laser",
+      // company: "Vaishnavi Laser",
+      content: "Excellent Service And Quality Product.... I am happy to do business with them.",
       rating: 5,
       avatar: TESTIMONIAL_AVATARS[3]
     }

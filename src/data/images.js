@@ -18,16 +18,16 @@ const baseProductImages = {
   'prod-1': 'https://5.imimg.com/data5/SELLER/Default/2021/11/UO/LF/OL/92863266/nozzle-500x500.jpg',
   'prod-2': 'https://www.osprilaser.com/uploads/37372/intelligent-information-cutting-head-20eef1.jpg',
   'prod-3': 'https://m.media-amazon.com/images/I/51yR6wAdk1L.jpg',
-  'prod-4': '',
-  'prod-5': '',
-  'prod-6': '',
-  'prod-7': '',
-  'prod-8': '',
-  'prod-9': '',
-  'prod-10': '',
-  'prod-11': '',
-  'prod-12': '',
-  'prod-13': '',
+  'prod-4': 'Product/D30-F75_AND_D30-F125.jpeg',
+  'prod-5': 'Product/Fiber_Laser_Protection_Window.jpeg',
+  'prod-6': 'Product/Optioal_Lens.jpeg',
+  'prod-7': 'Product/0.8mm_and_1.2mm_and_0.2mm.jpeg',
+  'prod-8': 'Product/Laser_Lens.jpeg',
+  'prod-9': 'Product/Raytools_BM11_Auto-Focus_Laser_Cutting.png',
+  'prod-10': 'Product/0.8mm to 6mm dubble.jpeg',
+  'prod-11': 'Product/SMC_10_bar_components_refer_to_a_broad.png',
+  'prod-12': 'Product/Raytools Wireless Handheld Remote Controller.png',
+  'prod-13': 'Product/Raytools CNC Wireless Remote Controller.png',
   'prod-14': '',
   'prod-15': '',
   'prod-16': '',
@@ -210,22 +210,22 @@ export const GALLERY_12_IMAGES = [
   //  Fiber Optice Continuous Laser 
   {
     id: 4,
-    url: "",
-    title: "Max Fiber Laser Source",
+    url: "Product/CWFL-3000.png",
+    title: "CWFL-3000 ",
     category: "Fiber Optice Continuous Laser",
     tag: "12KW CNC"
   },
   {
     id: 5,
-    url: "",
-    title: "Max Fiber Laser Source",
-    category: "Fiber Optice Continuous Laser",
+    url: "Product/Laser welding 1.5kw 4,20,200.png",
+    title: "Laser Welding ",
+    category: "Laser welding 1.5kw 4,20,200",
     tag: "12KW CNC"
   },
   {
     id: 6,
     url: "",
-    title: "Max Fiber Laser Source",
+    title: "Raytools BM11 Auto-Focus Laser Cutting ",
     category: "Fiber Optice Continuous Laser",
     tag: "12KW CNC"
   },
@@ -301,10 +301,10 @@ export const IMAGE_MANAGEMENT_CATALOG = [
 ];
 
 export const TESTIMONIAL_AVATARS = [
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80", // Plant Manager
-  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80", // Maintenance Engineer
-  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80", // Manufacturing Director
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"  // Fabrication Shop Owner
+  "ima/1.png", // Plant Manager
+  "ima/2.png", // Maintenance Engineer
+  "ima/3.png", // Manufacturing Director
+  "ima/4.png"  // Fabrication Shop Owner
 ];
 
 export const TEAM_MEMBERS = [

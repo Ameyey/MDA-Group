@@ -64,7 +64,7 @@ export const TESTIMONIALS = [
     name: "Rajesh Sharma",
     role: "Plant Operations Manager",
     company: "Apex Precision Sheet Metal, Pune",
-    content: "MDA Group is our go-to partner for Raytools laser nozzles and protective lenses. Their 27.9x4.1 optics last 30% longer than generic aftermarket parts and delivery in Pune is prompt!",
+    content: "Excellent experience especially with this supplier. Spare parts are reasonably priced, delivery is always on time, and the service response is quick and reliable (best part from MNAGESH sir on time communication and follow up is best experienced) The welding machine we purchased is performing extremely well.",
     rating: 5,
     avatarColor: "bg-blue-600"
   },
@@ -73,15 +73,14 @@ export const TESTIMONIALS = [
     name: "Vikramaditya Kulkarni",
     role: "Laser Maintenance Lead",
     company: "LaserTech Solutions, Chakan Industrial Hub",
-    content: "When our 6KW Raycus source needed a replacement QBH cable and BOCI ceramic rings, MDA Group delivered genuine OEM spares within 4 hours. Phenomenal technical knowledge and service.",
-    rating: 5,
+    content: "MDA Group provide best Cnc Laser Cutting Welding machines , services , spare parts at lower prices . Owner Mangesh Sir has expertise in sheet metal tooling and hardware. I recommaned MDA Group for Laser cutting machine , bending machine , laser fibre welding machine , all machine spare parts and consumable at best price all over india .",
     avatarColor: "bg-cyan-600"
   },
   {
     id: 3,
     name: "Amit Patel",
     role: "Director of Manufacturing",
-    company: "Gujrat Fiber Fabrication Works, Ahmedabad",
+    // company: "Gujrat Fiber Fabrication Works, Ahmedabad",
     content: "We purchased a complete OSPRI H20B auto-focus head along with Precitec sensor cables from MDA Group. Prices are very competitive and customer service is 10/10.",
     rating: 5,
     avatarColor: "bg-indigo-600"

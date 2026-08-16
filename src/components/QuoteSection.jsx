@@ -19,7 +19,7 @@ export const QuoteSection = ({ darkMode }) => {
 
 
 
- console.log(formData)
+//  console.log(formData)
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
