@@ -28,7 +28,7 @@ const baseProductImages = {
   'prod-11': 'Product/SMC_10_bar_components_refer_to_a_broad.png',
   'prod-12': 'Product/Raytools Wireless Handheld Remote Controller.png',
   'prod-13': 'Product/Raytools CNC Wireless Remote Controller.png',
-  'prod-14': '',
+  'prod-14': 'Product/Pro-Series CWFL - 3000.jpeg',
   'prod-15': '',
   'prod-16': '',
   'prod-17': '',

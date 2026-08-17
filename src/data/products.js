@@ -272,10 +272,10 @@ export const PRODUCTS = [
   },
   {
     id: "prod-14",
-    name: "Servo Motor",
-    category: "WSX Laser Cutting Head",
+    name: "PRO- Series CWFL-3000",
+    category: "1.5kw to 12kw available",
     compatibleBrands: ["Friendess", "Han's Laser", "Yaskawa", "Panasonic"],
-    shortDesc: "High response AC servo motor & amplifier drive for CNC gantry X/Y/Z motion control.",
+    shortDesc: "Essential cooling system removes laser heat, ensuring beam quality, cutting accuracy, and machine longevity.",
     fullDesc: "Industrial high precision AC servo motor with 24-bit absolute encoder. Delivers rapid acceleration, smooth torque output, and millisecond positioning accuracy for laser machine gantries.",
     badge: "High Performance",
     pricePlaceholder: "₹ 18,500 - ₹ 65,000 / Motor",
